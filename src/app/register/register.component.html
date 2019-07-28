@@ -1,0 +1,35 @@
+<body>
+<div class="login-form">
+    <form>
+		<div class="avatar">
+			<img src="https://github.com/NicholasDollick/QNTM-WPF/blob/master/QNTMWPFUserInterface/images/dropshadow-and-text.png?raw=true" alt="Avatar">
+		</div>
+        <h2 class="text-center">Create an account</h2>   
+        
+        <div class="form-label-group">
+        	  <input type="text" id="username" class="form-control" placeholder="Username" required="required">
+            <label for="username">Username</label>
+        </div>
+		
+        <div class="form-label-group">
+            <input type="password" id="inputPasssword" class="form-control" name="password" placeholder="Password" required="required">
+            <label for="inputPassword">Password</label>
+        </div>
+        <div class="form-label-group">
+            <input type="password" id="confPasssword" class="form-control" name="password" placeholder="Password" required="required">
+            <label for="inputPassword">Confirm Password</label>
+        </div>
+        <div class="captcha-group">
+          <re-captcha class="captcha" required (onCaptchaComplete)="onCaptchaComplete($event)" 
+              (resolved)="resolved($event)" siteKey="6LdqFYgUAAAAACfQ1uLeb0xAF3vnEZAnZAn9XorU">
+          </re-captcha>   
+        </div>     
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+        </div>
+		<div class="clearfix">
+            <a routerLinkActive="active" [routerLink]="['/login']" class="pull-left">Already have an account?</a>
+        </div>
+    </form>
+</div>
+</body>
