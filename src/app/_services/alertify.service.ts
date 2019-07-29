@@ -12,7 +12,7 @@ confirm(message: string, okCallback: () => any ) {
   alertify.confirm(message, function(e) {
     if (e) {
       okCallback();
-    }
+    } else {}
   });
 }
 

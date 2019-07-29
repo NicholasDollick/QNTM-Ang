@@ -18,14 +18,17 @@ export class AuthService {
 
 constructor(private http: HttpClient) { }
 
-login(model: any) {
+login(model: any, remember: boolean) {
   return this.http.post(this.baseUrl + 'login', model)
   .pipe(map((response: any) => {
     const user = response;
     if (user) {
-      // have bool passed in to decide local vs session storage
-      localStorage.setItem('token', user.token);
-      localStorage.setItem('user', JSON.stringify(user.user));
+      if (remember) {
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('user', JSON.stringify(user.user));
+      }
+      sessionStorage.setItem('token', user.token);
+      sessionStorage.setItem('user', JSON.stringify(user.user));
       this.decodedToken = this.jwtHelper.decodeToken(user.token);
       this.currentUser = user.user;
     }

@@ -13,6 +13,8 @@ import { appRoutes } from './routes';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './_services/auth.service';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { AlertifyService } from './_services/alertify.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
    declarations: [
@@ -26,11 +28,13 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
       RecaptchaModule.forRoot(),
       FormsModule,
       RouterModule.forRoot(appRoutes),
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      HttpClientModule
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      AlertifyService
    ],
    bootstrap: [
       AppComponent

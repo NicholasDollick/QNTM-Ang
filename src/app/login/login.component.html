@@ -19,7 +19,7 @@
             <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
         </div>
 		<div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <label class="pull-left checkbox-inline"><input type="checkbox" name="remember" [(ngModel)]="remember"/> Remember me</label>
             <a href="#" class="pull-right">Forgot Password?</a>
         </div>
     </form>
