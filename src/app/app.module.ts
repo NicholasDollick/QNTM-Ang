@@ -11,6 +11,8 @@ import { RegisterComponent } from './register/register.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { appRoutes } from './routes';
 import { HomeComponent } from './home/home.component';
+import { AuthService } from './_services/auth.service';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 @NgModule({
    declarations: [
@@ -26,7 +28,10 @@ import { HomeComponent } from './home/home.component';
       RouterModule.forRoot(appRoutes),
       BrowserAnimationsModule
    ],
-   providers: [],
+   providers: [
+      AuthService,
+      ErrorInterceptorProvider
+   ],
    bootstrap: [
       AppComponent
    ]
