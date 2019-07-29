@@ -9,19 +9,36 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class RegisterComponent implements OnInit {
   model: any = {};
+  response: string;
+  confPassword: string;
 
   constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
 
-  register() {
+  async register() {
     console.log(this.model);
-    this.authService.register(this.model).subscribe(() => {
-      this.alertify.success('Registration Complete!');
-    }, error => {
-      this.alertify.error(error);
-    });
+    console.log(JSON.parse(this.model));
+    if (this.response === undefined) {
+      this.alertify.error('Captcha Unsolved');
+    } else {
+      const res = await this.authService.verify(this.response);
+
+      if (res === 'valid') {
+        this.authService.register(this.model).subscribe(() => {
+          this.alertify.message('Registration Complete');
+        }, error => {
+          this.alertify.error(error);
+        });
+      } else {
+        this.alertify.error('Incorrect captcha response');
+      }
+    }
+  }
+
+  resolved(captchaResponse) {
+    this.response = captchaResponse;
   }
 
 }

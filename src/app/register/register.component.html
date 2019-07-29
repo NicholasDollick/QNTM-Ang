@@ -12,11 +12,11 @@
         </div>
 		
         <div class="form-label-group">
-            <input type="password" id="inputPasssword" class="form-control" [(ngModel)]="model.password" name="password" placeholder="Password" required>
+            <input type="password" id="inputPasssword" class="form-control" [(ngModel)]="model.password" name="password" required placeholder="Password">
             <label for="inputPassword">Password</label>
         </div>
         <div class="form-label-group">
-            <input type="password" id="confPasssword" class="form-control" name="password" placeholder="Password">
+            <input type="password" class="form-control" [(ngModel)]="model.confPasssword" name="confPasssword" required placeholder="Password">
             <label for="inputPassword">Confirm Password</label>
         </div>
         <div class="captcha-group">
@@ -25,10 +25,11 @@
           </re-captcha>   
         </div>     
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+            <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary btn-lg btn-block">Register</button>
         </div>
 		<div class="clearfix">
             <a routerLinkActive="active" [routerLink]="['/login']" class="pull-left">Already have an account?</a>
+            <p *ngIf="model.password != model.confPasssword">Hello</p>
         </div>
     </form>
 </div>
