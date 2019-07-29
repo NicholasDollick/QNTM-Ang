@@ -23,12 +23,13 @@ login(model: any, remember: boolean) {
   .pipe(map((response: any) => {
     const user = response;
     if (user) {
+      console.log(user);
       if (remember) {
         localStorage.setItem('token', user.token);
-        localStorage.setItem('user', JSON.stringify(user.user));
+        localStorage.setItem('user', JSON.stringify(user));
       }
       sessionStorage.setItem('token', user.token);
-      sessionStorage.setItem('user', JSON.stringify(user.user));
+      sessionStorage.setItem('user', JSON.stringify(user));
       this.decodedToken = this.jwtHelper.decodeToken(user.token);
       this.currentUser = user.user;
     }

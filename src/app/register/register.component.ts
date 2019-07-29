@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,14 +13,13 @@ export class RegisterComponent implements OnInit {
   response: string;
   confPassword: string;
 
-  constructor(private authService: AuthService, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService,
+    private router: Router) { }
 
   ngOnInit() {
   }
 
   async register() {
-    console.log(this.model);
-    console.log(JSON.parse(this.model));
     if (this.response === undefined) {
       this.alertify.error('Captcha Unsolved');
     } else {
@@ -30,6 +30,8 @@ export class RegisterComponent implements OnInit {
           this.alertify.message('Registration Complete');
         }, error => {
           this.alertify.error(error);
+        }, () => {
+          this.router.navigate(['/login']);
         });
       } else {
         this.alertify.error('Incorrect captcha response');

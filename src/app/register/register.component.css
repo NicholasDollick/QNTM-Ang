@@ -134,3 +134,18 @@ body {
     -webkit-transform-origin:0 0;
     padding-bottom: .3rem;
 }
+
+.fa-check-circle {
+  color: greenyellow;
+}
+
+.fa-times-circle {
+  color:red;
+  margin-right: 3px;
+}
+
+.passError {
+  color: red;
+  font-size: 90%;
+  margin-top: 2px;
+}
