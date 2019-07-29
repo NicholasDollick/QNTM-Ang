@@ -9,5 +9,4 @@ export const appRoutes: Routes = [
     {path: 'login', component: LoginComponent, data: { animation: 'isLeft'}},
     {path: 'register', component: RegisterComponent, data: { animation: 'isRight'}},
     {path: '**', redirectTo: '', pathMatch: 'full'}
-
 ];
