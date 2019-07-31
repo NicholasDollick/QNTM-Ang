@@ -1,3 +1,9 @@
 .p {
     color: white;
 }
+
+.loading-text {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}

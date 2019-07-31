@@ -12,7 +12,7 @@ export class CryptoService {
 
 constructor() { }
 
-// this works
+// generates PGP keypair using the supplied password as passphrase.
 async genKeyPair(userName: string, password: string, length: number, passPhrase: string) {
   const options = {
     userIds: [{name: userName}],
@@ -42,10 +42,13 @@ future implementation ideas:
   two passwords: keep login access and private key passes as seperate values
  */
 
+
+ // hashes password before being used as the encryption key for PGP private key.
 hashPass(password: string) {
   return sha512.sha512(password);
 }
 
+// encrypts PGP secret key before sending to server for storage in db.
 encryptKey(privKey: string, passHash: string) {
   const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(privKey), passHash, {
     keySize: 128 / 8,
@@ -55,8 +58,8 @@ encryptKey(privKey: string, passHash: string) {
 
   return encrypted.toString();
 }
-// the above returned value is what will be stored in database
 
+// used to decrypt secret passed back from server on auth'd access.
 decryptKey(key: any, passHash: string) {
   const decrypted = CryptoJS.AES.decrypt(key, this.hashPass(passHash), {
     keySize: 128 / 8,
@@ -67,6 +70,7 @@ decryptKey(key: any, passHash: string) {
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
 
+// method for testing. Will be removed.
 async verifyKeys(privateKey: string, password: string) {
   console.log(privateKey);
   console.log('Decrypting');
@@ -74,12 +78,9 @@ async verifyKeys(privateKey: string, password: string) {
   console.log(decPriv);
 }
 
-
+// test function for encrpytion and decryption using generated PGP keys.
 async encryptDecrypt(privKey: any, publicKey: string, passPhrase: string, message: string) {
   const privKeyObj = (await openpgp.key.readArmored(this.decryptKey(privKey, passPhrase))).keys[0];
-  console.log(privKeyObj);
-  console.log(await openpgp.key.readArmored(this.decryptKey(privKey, (passPhrase))));
-  console.log(privKey);
   await privKeyObj.decrypt(passPhrase);
 
   const options = {

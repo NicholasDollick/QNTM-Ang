@@ -35,6 +35,7 @@
     "ng-recaptcha": "^4.3.0",
     "ngx-bootstrap": "^5.1.0",
     "ngx-captcha": "^7.0.0",
+    "ngx-loading": "^3.0.1",
     "openpgp": "^4.5.5",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

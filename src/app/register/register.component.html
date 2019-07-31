@@ -12,14 +12,14 @@
         </div>
 		
         <div class="form-label-group">
-            <input type="password" id="inputPasssword" class="form-control" [(ngModel)]="model.password" name="password" required placeholder="Password">
+            <input type="password" id="inputPasssword" class="form-control" [(ngModel)]="model.Password" name="password" required placeholder="Password">
             <label for="inputPassword">Password</label>
         </div>
         <div class="form-label-group">
             <input type="password" class="form-control" [(ngModel)]="model.confPasssword" name="confPasssword" required placeholder="Password">
             <label for="inputPassword">Confirm Password</label>
             <div class="passError">
-                <p *ngIf="model.password != model.confPasssword"><i class="fa fa-times-circle"></i>Passwords Must Match</p>
+                <p *ngIf="model.Password != model.confPasssword"><i class="fa fa-times-circle"></i>Passwords Must Match</p>
             </div>
         </div>
         <div class="captcha-group">
@@ -28,11 +28,15 @@
           </re-captcha>   
         </div>     
         <div class="form-group">
-            <button type="submit" [disabled]="!registerForm.valid || model.password != model.confPasssword" class="btn btn-primary btn-lg btn-block">Register</button>
+            <button type="submit" [disabled]="!registerForm.valid || model.Password != model.confPasssword" class="btn btn-primary btn-lg btn-block">Register</button>
         </div>
 		<div class="clearfix">
             <a routerLinkActive="active" [routerLink]="['/login']" class="pull-left">Already have an account?</a>
         </div>
     </form>
 </div>
+        <div class="text-align:center">
+            <div class="loading-text" *ngIf="loading">{{process}}</div>
+        </div>
+        <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </body>

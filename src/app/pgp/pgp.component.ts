@@ -11,8 +11,10 @@ import { parse, stringify } from 'flatted/esm';
 })
 export class PgpComponent implements OnInit {
   model: any = {};
-  pub: any;
-  priv: any;
+  private pub: any;
+  private priv: any;
+  public loading = false;
+  public process = 'asdf';
 
   constructor(private crypt: CryptoService) { }
 
@@ -20,13 +22,21 @@ export class PgpComponent implements OnInit {
   }
 
   async run() {
-    await this.crypt.genKeyPair(this.model.Username, this.model.Password,  4096, this.model.Password).then(async (res) => {
+    console.log(this.model);
+    this.model.Test = 'BOOM';
+    console.log(this.model);
+    this.loading = true;
+    this.process = 'Generating Keys';
+    await this.crypt.genKeyPair(this.model.Username, this.model.Password,  4096, this.model.Password).then(res => {
       const data = res;
       this.pub = data['public'];
       this.priv = data['private'];
     });
-
+    this.process = 'Verifying Keys';
+    await this.crypt.verifyKeys(this.priv, this.model.Password);
+    this.process = 'Testing';
     await this.crypt.encryptDecrypt(this.priv, this.pub, this.model.Password, 'Hello World');
+    this.loading = false;
     // await this.crypt.verifyKeys(this.priv, this.model.Password);
   }
 

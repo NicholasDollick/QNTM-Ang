@@ -149,3 +149,12 @@ body {
   font-size: 90%;
   margin-top: 2px;
 }
+
+.loading-text {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+}

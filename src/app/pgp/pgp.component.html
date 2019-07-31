@@ -13,4 +13,6 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
         </div>
+        <div class="loading-text" *ngIf="loading">{{process}}</div>
+        <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
         </form>
