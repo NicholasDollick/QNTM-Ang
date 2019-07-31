@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as openpgp from 'openpgp';
+import { CryptoService } from '../_services/crypto.service';
+import { parse, stringify } from 'flatted/esm';
 
 
 @Component({
@@ -8,23 +10,24 @@ import * as openpgp from 'openpgp';
   styleUrls: ['./pgp.component.css']
 })
 export class PgpComponent implements OnInit {
+  model: any = {};
+  pub: any;
+  priv: any;
 
-  constructor() { }
+  constructor(private crypt: CryptoService) { }
 
-  async ngOnInit() {
+  ngOnInit() {
+  }
 
-    const options = {
-      userIds: [{name: 'Test Boi', email: 'asdf@asdf.com'}],
-      numBits: 4096,
-      passphrase: 'the pass'
-    };
-    await openpgp.generateKey(options).then(function(key) {
-      const priv = key.privateKeyArmored;
-      const pub = key.publicKeyArmored;
-      console.log(priv);
-      console.log(pub);
+  async run() {
+    await this.crypt.genKeyPair(this.model.Username, this.model.Password,  4096, this.model.Password).then(async (res) => {
+      const data = res;
+      this.pub = data['public'];
+      this.priv = data['private'];
     });
-    console.log('im here');
+
+    await this.crypt.encryptDecrypt(this.priv, this.pub, this.model.Password, 'Hello World');
+    // await this.crypt.verifyKeys(this.priv, this.model.Password);
   }
 
 }

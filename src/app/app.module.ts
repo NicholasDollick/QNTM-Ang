@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PGPModule } from 'openpgp';
 
 
 import { AppComponent } from './app.component';
@@ -17,6 +16,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PgpComponent } from './pgp/pgp.component';
+import { CryptoService } from './_services/crypto.service';
 
 @NgModule({
    declarations: [
@@ -37,7 +37,8 @@ import { PgpComponent } from './pgp/pgp.component';
    providers: [
       AuthService,
       ErrorInterceptorProvider,
-      AlertifyService
+      AlertifyService,
+      CryptoService
    ],
    bootstrap: [
       AppComponent
