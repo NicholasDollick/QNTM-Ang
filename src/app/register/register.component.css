@@ -144,10 +144,11 @@ body {
   margin-right: 3px;
 }
 
-.passError {
+.boxError {
   color: red;
   font-size: 90%;
   margin-top: 2px;
+  foreground: red;
 }
 
 .loading-text {

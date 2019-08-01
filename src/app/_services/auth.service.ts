@@ -62,6 +62,10 @@ async verify(response: string) {
   return promise;
 }
 
+async exists(model: any) {
+  return await this.http.post(this.baseUrl + 'exists', model);
+}
+
 register(model: any) {
   return this.http.post(this.baseUrl + 'register', model);
 }

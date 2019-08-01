@@ -2,8 +2,9 @@
         <h2 class="text-center">Test Page</h2>   
         
         <div class="form-label-group">
-        	  <input type="text" class="form-control" [(ngModel)]="model.Username" placeholder="Username" name="username" required>
+        	  <input type="text" class="form-control" [(ngModel)]="model.Username" (ngModelChange)="test()" placeholder="Username" name="username" required>
             <label for="username">Username</label>
+            <p *ngIf="exists"><i class="fa fa-times-circle"></i>Username already exists</p>
         </div>
 		
         <div class="form-label-group">

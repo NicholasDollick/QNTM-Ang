@@ -1,25 +1,31 @@
 <body>
 <div class="login-form">
-    <form  #registerForm="ngForm" (ngSubmit)="register()">
+    <form  #registerForm="ngForm" (ngSubmit)="precheck()">
 		<div class="avatar">
 			<img src="https://github.com/NicholasDollick/QNTM-WPF/blob/master/QNTMWPFUserInterface/images/dropshadow-and-text.png?raw=true" alt="Avatar">
 		</div>
         <h2 class="text-center">Create an account</h2>   
         
         <div class="form-label-group">
-        	  <input type="text" class="form-control" [(ngModel)]="model.Username" placeholder="Username" name="username" required>
+        	<input type="text" class="form-control" [(ngModel)]="model.Username" placeholder="Username" name="username" (ngModelChange)="onUsernameChange()" required>
             <label for="username">Username</label>
+            <div class="boxError">
+                <p *ngIf="exists"><i class="fa fa-times-circle"></i>Username is taken</p>
+            </div>
         </div>
 		
         <div class="form-label-group">
             <input type="password" id="inputPasssword" class="form-control" [(ngModel)]="model.Password" name="password" required placeholder="Password">
             <label for="inputPassword">Password</label>
+            <div class="boxError">
+                <p *ngIf="model?.Password?.length < 6 && model?.Password?.length > 0"><i class="fa fa-times-circle"></i>Passwords must be at least 6 characters long</p>
+            </div>
         </div>
         <div class="form-label-group">
             <input type="password" class="form-control" [(ngModel)]="model.confPasssword" name="confPasssword" required placeholder="Password">
             <label for="inputPassword">Confirm Password</label>
-            <div class="passError">
-                <p *ngIf="model.Password != model.confPasssword"><i class="fa fa-times-circle"></i>Passwords Must Match</p>
+            <div class="boxError">
+                <p *ngIf="model?.Password != model?.confPasssword && model?.confPasssword?.length > 0"><i class="fa fa-times-circle"></i>Passwords Must Match</p>
             </div>
         </div>
         <div class="captcha-group">
