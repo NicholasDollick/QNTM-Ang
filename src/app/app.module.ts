@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingModule } from 'ngx-loading';
+import { PaginationModule, BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { AlertifyService } from './_services/alertify.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PgpComponent } from './pgp/pgp.component';
 import { CryptoService } from './_services/crypto.service';
+import { MessagesResolver } from './_resolvers/messages.resolver.ts';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
    declarations: [
@@ -25,7 +28,8 @@ import { CryptoService } from './_services/crypto.service';
       LoginComponent,
       RegisterComponent,
       HomeComponent,
-      PgpComponent
+      PgpComponent,
+      MessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -34,13 +38,18 @@ import { CryptoService } from './_services/crypto.service';
       RouterModule.forRoot(appRoutes),
       BrowserAnimationsModule,
       HttpClientModule,
-      NgxLoadingModule.forRoot({})
+      NgxLoadingModule.forRoot({}),
+      PaginationModule.forRoot(),
+      BsDatepickerModule.forRoot(),
+      BsDropdownModule.forRoot(),
+      TabsModule.forRoot()
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      CryptoService
+      CryptoService,
+      MessagesResolver
    ],
    bootstrap: [
       AppComponent

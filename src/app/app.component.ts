@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import { fader, stepper } from './route-animations';
+import { fader } from './route-animations';
 import { RecaptchaComponent } from 'ng-recaptcha';
 
 
@@ -9,10 +9,10 @@ import { RecaptchaComponent } from 'ng-recaptcha';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-    // fader,
+    fader,
     // slider,
     // transformer,
-     stepper
+    // stepper
   ]
 })
 
