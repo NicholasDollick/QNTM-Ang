@@ -10,6 +10,10 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    document.addEventListener('scroll', this.scroll, true);
   }
 
+  scroll = (): void => {
+    console.log('you scrolled');
+  }
 }

@@ -1,4 +1,6 @@
-
+body {
+    background: lightgray;
+}
 
 #home {
     background: url(images/splash.jpg) no-repeat center center fixed;
@@ -13,6 +15,8 @@
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+    color: white;
+    text-shadow: 2px 2px 5px gray;
 }
 
 .landing-text h1 {
@@ -29,7 +33,7 @@
 }
 
 #fixed {
-    background: url(images/2.jpg) no-repeat center center fixed;
+    background: url(images/1.jpg) center center fixed;
     display: table;
     height: 60vh;
     position: relative;
@@ -39,7 +43,7 @@
 
 footer {
     width: 100%;
-    background-color: coral;
+    background-color: rgb(44, 44, 44);
     padding: 5% 5% 10% 5%;
     color: white;
 }
