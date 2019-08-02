@@ -1,0 +1,60 @@
+
+
+#home {
+    background: url(images/splash.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+.landing-text {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.landing-text h1 {
+    font-size: 500%;
+    font-weight: 700;
+}
+
+.padding {
+    padding: 80px 0;
+}
+
+.padding img {
+    width: 100%;
+}
+
+#fixed {
+    background: url(images/2.jpg) no-repeat center center fixed;
+    display: table;
+    height: 60vh;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+footer {
+    width: 100%;
+    background-color: coral;
+    padding: 5% 5% 10% 5%;
+    color: white;
+}
+
+.fa {
+    padding: 5px;
+    font-size: 25px;
+    color: #FFF;
+}
+
+.fa:hover {
+    color: #d5d5d5;
+    text-decoration: none;
+}
+
+.icon {
+    max-width: 200px;
+}
