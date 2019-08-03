@@ -12,7 +12,16 @@ export class CryptoService {
 
 constructor() { }
 
-// generates PGP keypair using the supplied password as passphrase.
+/**
+ * Generates PGP keypair using the supplied password as passphrase.
+ *
+ * @param userName - The name that will be attached to generated keys
+ * @param password - The user's password to be hashed and used to encrypt private key to send to server
+ * @param length - The number of bits for generated key
+ * @param passPhrase - Used to encrypt private key locally, in this case the user's password is used
+ * @return A PGP keypair
+ *
+ **/
 async genKeyPair(userName: string, password: string, length: number, passPhrase: string) {
   const options = {
     userIds: [{name: userName}],
@@ -30,13 +39,26 @@ async genKeyPair(userName: string, password: string, length: number, passPhrase:
   return { public: this.publicKey, private: this.privateKey };
 }
 
-// hashes password before being used as the encryption key for PGP private key.
-// this is NOT the hash the server will store, server side uses salted bcrypt.
+/**
+ * Hashes password before being used as the encryption key for PGP private key.
+ * This is NOT the hash the server will store, server side uses salted bycrypt.
+ *
+ * @param password - The user's password to be hashed and used to encrypt private key to send to server.
+ * @return A sha512 hash of user's password.
+ *
+ **/
 hashPass(password: string) {
   return sha512.sha512(password);
 }
 
-// encrypts PGP secret key before sending to server for storage in db.
+/**
+ *  AES encrypts PGP secret key before sending to server for storage in db.
+ *
+ * @param privKey - The private key from user's generated keypair.
+ * @param passHash - The user's sha512 hashed password to be used as key's AES encryption key.
+ * @return An encrypted version of the user's pgp private key to be stored by server.
+ *
+ **/
 encryptKey(privKey: string, passHash: string) {
   const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(privKey), passHash, {
     keySize: 128 / 8,
@@ -47,9 +69,16 @@ encryptKey(privKey: string, passHash: string) {
   return encrypted.toString();
 }
 
-// used to decrypt secret passed back from server on auth'd access.
-decryptKey(key: any, passHash: string) {
-  const decrypted = CryptoJS.AES.decrypt(key, this.hashPass(passHash), {
+/**
+ * Used to decrypt secret key passed back from server on auth'd user access.
+ *
+ * @param key - The user's encrypted private key that was stored on server.
+ * @param password - The user's password to be hashed and used to decrypt private key sent from server.
+ * @return The unencrypted pgp private key for user.
+ *
+ **/
+decryptKey(key: string, password: string) {
+  const decrypted = CryptoJS.AES.decrypt(key, this.hashPass(password), {
     keySize: 128 / 8,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
