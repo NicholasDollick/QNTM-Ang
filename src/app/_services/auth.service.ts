@@ -48,15 +48,6 @@ async verify(response: string) {
     .toPromise()
     .then(
       res => {
-        /*
-        Object.keys(res).map(key => {
-          if (key === 'result') {
-            this.authed = res[key];
-            resolve(this.authed);
-          }
-        });
-        im not sure why tf i was doing this...
-        */
        this.authed = res['result'];
        resolve(this.authed);
       }, msg => {

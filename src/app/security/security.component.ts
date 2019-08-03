@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../_services/navbar.service';
 
 @Component({
-  moduleId: module.id,
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  selector: 'app-security',
+  templateUrl: './security.component.html',
+  styleUrls: ['./security.component.css']
 })
-export class NavComponent implements OnInit {
+export class SecurityComponent implements OnInit {
 
   constructor(public nav: NavbarService) { }
 

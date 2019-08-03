@@ -12,25 +12,25 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+        <a class="nav-link" [routerLink]="['/home']">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" [routerLink]="['/about']">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" [routerLink]="['/security']">Security</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link disabled" href="#">DevBlog</a>
       </li>
     </ul>
   </div>
   <ul class="nav navbar-nav navbar-right">
     <li>
-      <div class="btn-nav"><a class="btn btn-light btn-medium navbar-btn">Log in</a></div>
+      <div class="btn-nav"><a class="btn btn-light btn-medium navbar-btn" [routerLink]="['/login']">Log in</a></div>
     </li>
     <li class="ml-3 mr-4">
-      <div class="btn-nav-dark"><a class="btn btn-light btn-medium navbar-btn">Sign Up</a></div>
+      <div class="btn-nav-dark"><a class="btn btn-light btn-medium navbar-btn" [routerLink]="['/register']">Sign Up</a></div>
     </li>
   </ul>
 </nav>

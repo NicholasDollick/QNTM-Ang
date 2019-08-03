@@ -71,6 +71,10 @@ footer {
     color: white;
 }
 
+.btn-nav a {
+    color: white;
+}
+
 .navbar.nav{
     transition: 4 .90s linear
 }

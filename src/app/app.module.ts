@@ -22,6 +22,8 @@ import { MessagesResolver } from './_resolvers/messages.resolver.ts';
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { NavbarService } from './_services/navbar.service';
+import { AboutComponent } from './about/about.component';
+import { SecurityComponent } from './security/security.component';
 
 @NgModule({
    declarations: [
@@ -31,7 +33,9 @@ import { NavbarService } from './_services/navbar.service';
       HomeComponent,
       PgpComponent,
       MessagesComponent,
-      NavComponent
+      NavComponent,
+      AboutComponent,
+      SecurityComponent
    ],
    imports: [
       BrowserModule,

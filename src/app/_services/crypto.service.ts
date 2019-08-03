@@ -30,20 +30,8 @@ async genKeyPair(userName: string, password: string, length: number, passPhrase:
   return { public: this.publicKey, private: this.privateKey };
 }
 
-/*
-
-this results of the above key pair continue as followed:
-  public key remains untouched and past over to db.
-  private key gets bcrypted with password during register and passed
-  this private key is restored after a successful login, as the pass is needed for key to not be junk
-
-
-future implementation ideas:
-  two passwords: keep login access and private key passes as seperate values
- */
-
-
 // hashes password before being used as the encryption key for PGP private key.
+// this is NOT the hash the server will store, server side uses salted bcrypt.
 hashPass(password: string) {
   return sha512.sha512(password);
 }
@@ -107,3 +95,14 @@ async decrypt(message: string, publicKey: string, privateKey: any, passphrase: s
   });
 }
 }
+/*
+
+this results of the above key pair continue as followed:
+  public key remains untouched and past over to db.
+  private key gets bcrypted with password during register and passed
+  this private key is restored after a successful login, as the pass is needed for key to not be junk
+
+
+future implementation ideas:
+  two passwords: keep login access and private key passes as seperate values
+ */
