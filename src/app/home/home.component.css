@@ -62,3 +62,24 @@ footer {
 .icon {
     max-width: 200px;
 }
+
+#brand-image {
+    height: 35px;
+}
+
+.btn-nav {
+    color: white;
+}
+
+.navbar.nav{
+    transition: 4 .90s linear
+}
+
+.btn-light {
+    background: transparent;
+}
+
+.btn-nav-dark {
+    background: white;
+    color: rgb(44, 44, 44);
+}

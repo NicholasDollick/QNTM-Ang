@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,11 @@ export class HomeComponent implements OnInit {
   }
 
   scroll = (): void => {
-    console.log('you scrolled');
+    const num = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (num > 200) {
+      document.querySelector('nav').style.cssText = 'background: rgb(44, 44, 44)';
+    } else {
+      document.querySelector('nav').style.cssText = 'background: transperant';
+    }
   }
 }

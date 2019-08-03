@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingModule } from 'ngx-loading';
 import { PaginationModule, BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,6 +20,8 @@ import { PgpComponent } from './pgp/pgp.component';
 import { CryptoService } from './_services/crypto.service';
 import { MessagesResolver } from './_resolvers/messages.resolver.ts';
 import { MessagesComponent } from './messages/messages.component';
+import { NavComponent } from './nav/nav.component';
+import { NavbarService } from './_services/navbar.service';
 
 @NgModule({
    declarations: [
@@ -29,7 +30,8 @@ import { MessagesComponent } from './messages/messages.component';
       RegisterComponent,
       HomeComponent,
       PgpComponent,
-      MessagesComponent
+      MessagesComponent,
+      NavComponent
    ],
    imports: [
       BrowserModule,
@@ -49,7 +51,8 @@ import { MessagesComponent } from './messages/messages.component';
       ErrorInterceptorProvider,
       AlertifyService,
       CryptoService,
-      MessagesResolver
+      MessagesResolver,
+      NavbarService
    ],
    bootstrap: [
       AppComponent

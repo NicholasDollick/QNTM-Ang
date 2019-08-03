@@ -43,7 +43,7 @@ future implementation ideas:
  */
 
 
- // hashes password before being used as the encryption key for PGP private key.
+// hashes password before being used as the encryption key for PGP private key.
 hashPass(password: string) {
   return sha512.sha512(password);
 }
