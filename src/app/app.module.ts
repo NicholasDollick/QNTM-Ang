@@ -24,6 +24,8 @@ import { NavComponent } from './nav/nav.component';
 import { NavbarService } from './_services/navbar.service';
 import { AboutComponent } from './about/about.component';
 import { SecurityComponent } from './security/security.component';
+import { ChatComponent } from './chat/chat.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
    declarations: [
@@ -35,7 +37,9 @@ import { SecurityComponent } from './security/security.component';
       MessagesComponent,
       NavComponent,
       AboutComponent,
-      SecurityComponent
+      SecurityComponent,
+      ChatComponent,
+      TestComponent
    ],
    imports: [
       BrowserModule,
