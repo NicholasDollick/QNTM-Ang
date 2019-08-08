@@ -27,6 +27,40 @@ import { SecurityComponent } from './security/security.component';
 import { ChatComponent } from './chat/chat.component';
 import { TestComponent } from './test/test.component';
 
+import {
+   MatAutocompleteModule,
+   MatButtonModule,
+   MatButtonToggleModule,
+   MatCardModule,
+   MatCheckboxModule,
+   MatChipsModule,
+   MatDatepickerModule,
+   MatDialogModule,
+   MatExpansionModule,
+   MatGridListModule,
+   MatIconModule,
+   MatInputModule,
+   MatListModule,
+   MatMenuModule,
+   MatNativeDateModule,
+   MatPaginatorModule,
+   MatProgressBarModule,
+   MatProgressSpinnerModule,
+   MatRadioModule,
+   MatRippleModule,
+   MatSelectModule,
+   MatSidenavModule,
+   MatSliderModule,
+   MatSlideToggleModule,
+   MatSnackBarModule,
+   MatSortModule,
+   MatTableModule,
+   MatTabsModule,
+   MatToolbarModule,
+   MatTooltipModule,
+   MatStepperModule
+ } from '@angular/material';
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -52,7 +86,18 @@ import { TestComponent } from './test/test.component';
       PaginationModule.forRoot(),
       BsDatepickerModule.forRoot(),
       BsDropdownModule.forRoot(),
-      TabsModule.forRoot()
+      TabsModule.forRoot(),
+      MatTabsModule,
+      MatCardModule,
+      MatGridListModule,
+      MatButtonModule,
+      MatInputModule,
+      MatListModule,
+      MatIconModule,
+      MatSidenavModule,
+      MatProgressSpinnerModule,
+      MatTooltipModule,
+      MatDialogModule
    ],
    providers: [
       AuthService,

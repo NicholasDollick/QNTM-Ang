@@ -12,6 +12,11 @@ export class TestComponent implements OnInit {
   message = '';
   messages: string[] = [];
 
+  conversations: any;
+  selectedConversation: any;
+  text: string;
+  events: Array<any> = [];
+
   constructor() { }
 
   ngOnInit() {
