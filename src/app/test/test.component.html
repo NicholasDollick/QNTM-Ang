@@ -5,32 +5,28 @@
       <div class="inbox_msg">
         <div class="mesgs">
           <div class="msg_history">
-
-  <div *ngIf="messages.length > 0">
-    <div *ngFor="let message of messages">
-      <!-- to them -->
-      <div *ngIf="message['username'] == name">
-          <div class="outgoing_msg">
-              <div class="sent_msg">
-                  <p>{{message['username']}}: {{message['msg']}}</p>
+            <div *ngIf="messages.length > 0">
+              <div *ngFor="let message of messages">
+                <!-- to them -->
+                <div *ngIf="message['username'] == name">
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                           <p>{{message['username']}}: {{message['msg']}}</p>
+                         </div>
+                      </div>   
                 </div>
-            </div>
-        
-      </div>
-       <!-- to me -->
-      <div *ngIf="message['username'] != name">
-        <div class="incoming_msg">
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>{{message['username']}}: {{message['msg']}}</p>
+                <!-- to me -->
+                <div *ngIf="message['username'] != name">
+                 <div class="incoming_msg">
+                        <div class="received_msg">
+                          <div class="received_withd_msg">
+                            <p>{{message['username']}}: {{message['msg']}}</p>
+                          </div>
+                        </div>
                   </div>
+                </div>
               </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
+            </div>
           </div>
           <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
           <div class="type_msg">
