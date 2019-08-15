@@ -1,121 +1,49 @@
-<div id="main-container" style="text-align:center">
-  <h1>
-      ASP.NET Core SignalR Chat Test Page
-  </h1>
-
-  <div class="container">
-    <h2>Hello {{name}}!</h2>
-    <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
-      <div>
-        <label for="message">Message</label>
-        <input type="text" id="message" name="message" [(ngModel)]="message" required>
-      </div>
-      <button type="submit" id="sendmessage" [disabled]="!chatForm.valid">
-        Send
-      </button>
-    </form>
-  </div>
-
-  <div class="container" *ngIf="messages.length > 0">
-    <div *ngFor="let message of messages">
-      <span>{{message['username']}}: {{message['msg']}}</span>
-    </div>
-  </div>
-</div>
-
-
-<mat-sidenav-container class="container">
-  <mat-sidenav mode="side" opened>
-    <mat-card>
-      <mat-tab-group>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon matListIcon>forum</mat-icon>
-          </ng-template>
-          <mat-list class="conversations">
-              ...
-          </mat-list>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card>
-  </mat-sidenav>
-  <mat-sidenav position="end" mode="side" opened>
-    <mat-card>
-      <mat-list class="members">
-          ...
-      </mat-list>
-    </mat-card>
-  </mat-sidenav>
-  <section class="empty-conversation">
-    <h1 class="mat-display-1">Select a conversation from the left to start chatting</h1>
-  </section>
-  <section *ngIf="selectedConversation">
-    <div class="mat-typography conversation-header">
-        ...
-    </div>
-    <mat-divider></mat-divider>
-    <mat-list dense class="conversation-history mat-typography">
-      ...
-    </mat-list>
-    <div class="conversation-input">
-      <mat-divider></mat-divider>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Start chatting..." name="text" [(ngModel)]="text">
-        <mat-icon matSuffix>send</mat-icon>
-      </mat-form-field>
-    </div>
-  </section>
-</mat-sidenav-container>
-
-
 <body>
     <div class="container">
-        <h3 class="text-center">Chat Page</h3>
-        <div class="messaging" *ngIf="messages.length > 0">
+        <h3 class="text-center"><div class="test-heading">QNTM Test Page</div></h3>
+        <div class="messaging">
       <div class="inbox_msg">
         <div class="mesgs">
-          <div class="msg_history" *ngFor="let message of messages">
-            <div class="incoming_msg">
+          <div class="msg_history">
+
+  <div *ngIf="messages.length > 0">
+    <div *ngFor="let message of messages">
+      <!-- to them -->
+      <div *ngIf="message['username'] == name">
+          <div class="outgoing_msg">
+              <div class="sent_msg">
+                  <p>{{message['username']}}: {{message['msg']}}</p>
+                </div>
+            </div>
+        
+      </div>
+       <!-- to me -->
+      <div *ngIf="message['username'] != name">
+        <div class="incoming_msg">
               <div class="received_msg">
                 <div class="received_withd_msg">
                   <p>{{message['username']}}: {{message['msg']}}</p>
                   </div>
               </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test, which is a new approach to have</p>
-                  </div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Apollo University, Delhi, India Test</p>
-                </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>We work directly with our designers and suppliers,
-                    and sell direct to you, which means quality, exclusive
-                    products, at a price anyone can afford.</p>
-                  </div>
-              </div>
-            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
           </div>
+          <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
           <div class="type_msg">
             <div class="input_msg_write">
-              <input type="text" class="write_msg" placeholder="Type a message" />
-              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+              <input type="text" [(ngModel)]="message" required 
+              name="message" id="message" class="write_msg" 
+              placeholder="Type a message" />
+              <button class="msg_send_btn" id="sendmessage" [disabled]="!chatForm.valid">
+                <i class="fa fa-paper-plane-o"></i>
+              </button>
             </div>
           </div>
+          </form>
         </div>
       </div>
     </div>

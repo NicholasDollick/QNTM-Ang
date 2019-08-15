@@ -21,7 +21,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
 
-    this.name = window.prompt('Your name:', 'Jon');
+    // this.name = window.prompt('Your name:', 'Jon');
     this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
     this.hubConnection.start().then(() => {
       console.log('Connection Started');

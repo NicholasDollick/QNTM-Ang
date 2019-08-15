@@ -96,7 +96,7 @@ async verifyKeys(privateKey: string, password: string) {
 }
 
 // test function for encrpytion and decryption using generated PGP keys.
-async encryptDecrypt(privKey: any, publicKey: string, passPhrase: string, message: string) {
+async encryptDecrypt(privKey: string, publicKey: string, passPhrase: string, message: string) {
   const privKeyObj = (await openpgp.key.readArmored(this.decryptKey(privKey, passPhrase))).keys[0];
   await privKeyObj.decrypt(passPhrase);
 
