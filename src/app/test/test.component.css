@@ -21,9 +21,9 @@ img {
 }
 .received_msg {
   display: inline-block;
-  padding: 0 0 0 10px;
+  padding: 0 0 15px 10px;
   vertical-align: top;
-  width: 92%;
+  width: auto;
  }
  .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
@@ -32,7 +32,7 @@ img {
   font-size: 14px;
   margin: 0;
   padding: 5px 10px 5px 12px;
-  width: 100%;
+  width: auto;
 }
 .time_date {
   color: #747474;
@@ -41,7 +41,7 @@ img {
   margin: 8px 0 0;
 }
 .received_withd_msg { 
-  width: 57%;
+  width: auto;
 }
 
 .mesgs {

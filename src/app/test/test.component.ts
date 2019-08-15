@@ -57,6 +57,7 @@ sendMessage1() {
 
 sendMessage() {
   this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
+  this.message = '';
 }
 
 }
