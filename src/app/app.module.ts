@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingModule } from 'ngx-loading';
 import { PaginationModule, BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
@@ -61,6 +62,15 @@ import {
    MatStepperModule
  } from '@angular/material';
 
+
+export function tokenGetter() {
+   if (localStorage.getItem('token') === null) {
+      return sessionStorage.getItem('token');
+   } else {
+    return localStorage.getItem('token');
+ }
+}
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -87,6 +97,13 @@ import {
       BsDatepickerModule.forRoot(),
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      }),
       MatTabsModule,
       MatCardModule,
       MatGridListModule,
@@ -105,7 +122,7 @@ import {
       AlertifyService,
       CryptoService,
       MessagesResolver,
-      NavbarService
+      NavbarService,
    ],
    bootstrap: [
       AppComponent

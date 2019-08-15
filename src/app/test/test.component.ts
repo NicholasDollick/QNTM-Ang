@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import { UserService } from '../_services/user.service';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-test',
@@ -17,11 +19,11 @@ export class TestComponent implements OnInit {
   text: string;
   events: Array<any> = [];
 
-  constructor() { }
+  constructor(private user: UserService) { }
 
   ngOnInit() {
-
-    // this.name = window.prompt('Your name:', 'Jon');
+    this.name = this.user.getUsername();
+    console.log(this.name);
     this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
     this.hubConnection.start().then(() => {
       console.log('Connection Started');

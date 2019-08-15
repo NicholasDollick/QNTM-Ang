@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Message } from '../_models/message';
 import { PaginatedResults } from '../_models/pagination';
+import { Observable } from 'rxjs';
+import { User } from '../_models/user';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +16,22 @@ export class UserService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + 'users');
+  }
+
+  getUser(id): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/' + id);
+  }
+
+  getUsername(): string {
+      if (localStorage.getItem('user') === null) {
+        return JSON.parse(sessionStorage.getItem('user'))['username'];
+     } else {
+       return JSON.parse(localStorage.getItem('user'))['username'];
+     }
+  }
 
   getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
     const paginatedResults: PaginatedResults<Message[]> = new PaginatedResults<Message[]>();

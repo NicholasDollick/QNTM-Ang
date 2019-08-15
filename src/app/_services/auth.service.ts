@@ -67,8 +67,22 @@ register(model: any) {
 }
 
 loggedIn() {
-  const token = localStorage.getItem('token');
+  let token: string;
+  if (localStorage.getItem('token') === null) {
+    token =  sessionStorage.getItem('token');
+ } else {
+  token =  localStorage.getItem('token');
+ }
+
   return !this.jwtHelper.isTokenExpired(token);
+}
+
+getToken() {
+  if (localStorage.getItem('token') === null) {
+    return sessionStorage.getItem('token');
+ } else {
+  return localStorage.getItem('token');
+ }
 }
 
 }

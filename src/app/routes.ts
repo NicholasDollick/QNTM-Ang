@@ -9,17 +9,25 @@ import { AboutComponent } from './about/about.component';
 import { SecurityComponent } from './security/security.component';
 import { ChatComponent } from './chat/chat.component';
 import { TestComponent } from './test/test.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        children: [
+            {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
+            {path: 'pgp', component: PgpComponent},
+            {path: 'chat', component: TestComponent},
+        ]
+    },
     {path: 'login', component: LoginComponent, data: { animation: 'isLeft'}},
     {path: 'register', component: RegisterComponent, data: { animation: 'isRight'}},
     {path: 'home', component: HomeComponent},
     {path: 'about', component: AboutComponent},
-    {path: 'chat', component: TestComponent},
     {path: 'security', component: SecurityComponent},
-    {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
-    {path: 'pgp', component: PgpComponent},
     {path: '**', redirectTo: '', pathMatch: 'full'}
 ];

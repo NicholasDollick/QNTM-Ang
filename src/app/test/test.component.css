@@ -99,3 +99,10 @@ img {
 .test-heading {
   color: red;
 }
+
+.initial {
+  color: white;
+  position: relative;
+  text-align: center;
+  opacity: 80%;
+}
