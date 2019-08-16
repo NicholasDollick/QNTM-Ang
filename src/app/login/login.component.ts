@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   async login() {
     await this.authService.login(this.model, this.remember).subscribe(next => {
       this.alertify.success('logged in successfully');
+      this.router.navigate(['/chat']);
     }, error => {
       this.alertify.error(error);
     });

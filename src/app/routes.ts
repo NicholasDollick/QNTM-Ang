@@ -21,7 +21,8 @@ export const appRoutes: Routes = [
         children: [
             {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
             {path: 'pgp', component: PgpComponent},
-            {path: 'chat', component: TestComponent},
+            {path: 'chat', component: ChatComponent},
+            {path: 'test', component: TestComponent}
         ]
     },
     {path: 'login', component: LoginComponent, data: { animation: 'isLeft'}},

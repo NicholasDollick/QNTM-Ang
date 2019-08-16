@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { UserService } from '../_services/user.service';
-import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-test',
@@ -43,7 +42,7 @@ export class TestComponent implements OnInit {
     });
 
     */
-    this.hubConnection.on('chatMessages', (data: string) => {
+    this.hubConnection.on('RecievedMessage', (data: string) => {
       console.log(JSON.parse(data));
       this.messages.push(JSON.parse(data));
     });
@@ -56,8 +55,13 @@ sendMessage1() {
 }
 
 sendMessage() {
-  this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
+  // this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
+  this.hubConnection.invoke('SendMessageToGroup', 'PrivateChat', JSON.stringify({username: this.name, msg: this.message}));
   this.message = '';
+}
+
+joinGroup() {
+  this.hubConnection.invoke('addToGroup', 'PrivateChat');
 }
 
 }
