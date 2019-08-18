@@ -108,20 +108,40 @@ async encryptDecrypt(privKey: string, publicKey: string, passPhrase: string, mes
 
   openpgp.encrypt(options).then(async cipher => {
     const data = cipher.data;
-    await this.decrypt(data, publicKey, privKeyObj, passPhrase);
+    console.log( await this.decrypt(data, publicKey, privKeyObj, passPhrase) );
   });
 }
 
+async encrypt(publicKey: string, privKey: string, passPhrase: string, message: string) {
+  const privKeyObj = (await openpgp.key.readArmored(this.decryptKey(privKey, passPhrase))).keys[0];
+  await privKeyObj.decrypt(passPhrase);
+
+  const options = {
+    message: await openpgp.message.fromText(message),
+    publicKeys: (await openpgp.key.readArmored(publicKey)).keys,
+    privateKeys: [privKeyObj]
+  };
+
+  return openpgp.encrypt(options);
+}
+
 async decrypt(message: string, publicKey: string, privateKey: any, passphrase: string) {
+  const privKeyObj = (await openpgp.key.readArmored(this.decryptKey(privateKey, passphrase))).keys[0];
+  await privKeyObj.decrypt(passphrase);
+
   const options = {
     message: await openpgp.message.readArmored(message),
     publicKeys: (await openpgp.key.readArmored(publicKey)).keys,
-    privateKeys: [privateKey]
+    privateKeys: [privKeyObj]
   };
 
-  openpgp.decrypt(options).then(plantext => {
-    console.log(plantext.data);
+  let plain = '';
+
+  await openpgp.decrypt(options).then(plantext => {
+    plain = (plantext.data).toString();
   });
+
+  return plain;
 }
 }
 /*

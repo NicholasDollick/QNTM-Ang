@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { UserService } from '../_services/user.service';
+import { CryptoService } from '../_services/crypto.service';
 
 @Component({
   selector: 'app-test',
@@ -18,11 +19,16 @@ export class TestComponent implements OnInit {
   text: string;
   events: Array<any> = [];
 
-  constructor(private user: UserService) { }
+  privateKey: string;
+  publicKey: string;
+
+  constructor(private user: UserService, private crypto: CryptoService) { }
 
   ngOnInit() {
     this.name = this.user.getUsername();
-    console.log(this.name);
+    this.privateKey = JSON.parse(sessionStorage.getItem('user'))['priv'];
+    this.publicKey = JSON.parse(sessionStorage.getItem('user'))['pub'];
+
     this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
     this.hubConnection.start().then(() => {
       console.log('Connection Started');
@@ -42,9 +48,13 @@ export class TestComponent implements OnInit {
     });
 
     */
-    this.hubConnection.on('RecievedMessage', (data: string) => {
-      console.log(JSON.parse(data));
-      this.messages.push(JSON.parse(data));
+    this.hubConnection.on('RecievedMessage', async (data: string) => {
+      // console.log(JSON.parse(data));
+      console.log(data);
+      // this.messages.push(JSON.parse(data));
+      const message = await this.crypto.decrypt(data, this.publicKey, this.privateKey, 'asdf123');
+      console.log(message);
+      this.messages.push(JSON.parse(message));
     });
   }
 
@@ -58,6 +68,19 @@ sendMessage() {
   // this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
   this.hubConnection.invoke('SendMessageToGroup', 'PrivateChat', JSON.stringify({username: this.name, msg: this.message}));
   this.message = '';
+}
+
+async sendEncrypt() {
+  const msg = this.message;
+  this.message = '';
+  const test = await this.crypto.encrypt(this.publicKey, this.privateKey, 'asdf123',
+  JSON.stringify({username: this.name, msg: msg}));
+
+
+  // console.log( await this.crypto.decrypt(test['data'], this.publicKey, this.privateKey, 'asdf123'));
+
+  this.hubConnection.invoke('SendMessageToGroup', 'PrivateChat', test['data']);
+
 }
 
 joinGroup() {
