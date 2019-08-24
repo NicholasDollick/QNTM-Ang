@@ -7,9 +7,10 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessagesResolver } from './_resolvers/messages.resolver.ts';
 import { AboutComponent } from './about/about.component';
 import { SecurityComponent } from './security/security.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './livechat/chat/chat.component';
 import { TestComponent } from './test/test.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { ChatContainerComponent } from './livechat/chat-container/chat-container.component';
 
 
 export const appRoutes: Routes = [
@@ -21,10 +22,11 @@ export const appRoutes: Routes = [
         children: [
             {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
             {path: 'pgp', component: PgpComponent},
-            {path: 'chat', component: ChatComponent},
+            // {path: 'chat', component: ChatContainerComponent},
             {path: 'test', component: TestComponent}
         ]
     },
+    {path: 'chat', component: ChatContainerComponent},
     {path: 'login', component: LoginComponent, data: { animation: 'isLeft'}},
     {path: 'register', component: RegisterComponent, data: { animation: 'isRight'}},
     {path: 'home', component: HomeComponent},

@@ -48,13 +48,12 @@ export class TestComponent implements OnInit {
     });
 
     */
-    this.hubConnection.on('RecievedMessage', async (data: string) => {
-      // console.log(JSON.parse(data));
-      console.log(data);
-      // this.messages.push(JSON.parse(data));
-      const message = await this.crypto.decrypt(data, this.publicKey, this.privateKey, 'asdf123');
-      console.log(message);
-      this.messages.push(JSON.parse(message));
+    this.hubConnection.on('RecievedMessage', (data: string) => {
+      console.log(JSON.parse(data));
+      this.messages.push(JSON.parse(data));
+      // const message = await this.crypto.decrypt(data, this.publicKey, this.privateKey, 'asdf123');
+      // console.log(message);
+      // this.messages.push(JSON.parse(message));
     });
   }
 
@@ -81,6 +80,13 @@ async sendEncrypt() {
 
   this.hubConnection.invoke('SendMessageToGroup', 'PrivateChat', test['data']);
 
+}
+
+sendDirect() {
+  console.log(this.name);
+  console.log(this.message);
+  this.hubConnection.invoke('SendPrivateMessage', this.name, this.message);
+  this.message = '';
 }
 
 joinGroup() {

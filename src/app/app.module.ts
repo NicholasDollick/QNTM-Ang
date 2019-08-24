@@ -25,7 +25,7 @@ import { NavComponent } from './nav/nav.component';
 import { NavbarService } from './_services/navbar.service';
 import { AboutComponent } from './about/about.component';
 import { SecurityComponent } from './security/security.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './livechat/chat/chat.component';
 import { TestComponent } from './test/test.component';
 
 import {
@@ -61,6 +61,7 @@ import {
    MatTooltipModule,
    MatStepperModule
  } from '@angular/material';
+import { ChatContainerComponent } from './livechat/chat-container/chat-container.component';
 
 
 export function tokenGetter() {
@@ -83,7 +84,8 @@ export function tokenGetter() {
       AboutComponent,
       SecurityComponent,
       ChatComponent,
-      TestComponent
+      TestComponent,
+      ChatContainerComponent
    ],
    imports: [
       BrowserModule,

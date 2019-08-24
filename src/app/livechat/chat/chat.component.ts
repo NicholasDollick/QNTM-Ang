@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-chat',
@@ -32,7 +32,8 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
+    // this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
+    this.messages.push(this.message); // this is a temporary test change
     this.message = '';
   }
 
