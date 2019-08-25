@@ -1,12 +1,12 @@
 
 
-          <div class="msg_history">
-          <div class="initial">Now chatting with:</div>
+          <div class="msg_history" #msgList> 
             <div *ngIf="messages.length > 0">
               <div *ngFor="let message of messages">
                 <!-- to them -->
                 <div *ngIf="message['username'] == name">
                     <div class="outgoing_msg">
+                      <div class="outgoing_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                         <div class="sent_msg">
                            <p>{{message['username']}}: {{message['msg']}}</p>
                          </div>
@@ -15,6 +15,7 @@
                 <!-- to me -->
                 <div *ngIf="message['username'] != name">
                  <div class="incoming_msg">
+                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                         <div class="received_msg">
                           <div class="received_withd_msg">
                             <p>{{message['username']}}: {{message['msg']}}</p>
@@ -22,6 +23,7 @@
                         </div>
                   </div>
                 </div>
+                {{scrollToBottom()}}
               </div>
             </div>
           </div>

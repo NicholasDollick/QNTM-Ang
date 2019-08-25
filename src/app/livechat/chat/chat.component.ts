@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { UserService } from '../../_services/user.service';
 
@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit {
   name = '';
   message = '';
   messages: string[] = [];
+  @ViewChild('msgList') msgHist: ElementRef;
 
   constructor(private user: UserService) { }
 
@@ -31,10 +32,14 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  sendMessage() {
-    // this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
-    this.messages.push(this.message); // this is a temporary test change
+  sendMessage(): void {
+    this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
+    // this.messages.push(this.message); // this is a temporary test change
     this.message = '';
+  }
+
+  private scrollToBottom(): void {
+    this.msgHist.nativeElement.scrollTop = this.msgHist.nativeElement.scrollHeight;
   }
 
 }
