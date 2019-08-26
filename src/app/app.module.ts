@@ -19,7 +19,8 @@ import { AlertifyService } from './_services/alertify.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PgpComponent } from './pgp/pgp.component';
 import { CryptoService } from './_services/crypto.service';
-import { MessagesResolver } from './_resolvers/messages.resolver.ts';
+import { UserEditResolver } from './_resolvers/user-edit.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { NavbarService } from './_services/navbar.service';
@@ -62,6 +63,7 @@ import {
    MatStepperModule
  } from '@angular/material';
 import { ChatContainerComponent } from './livechat/chat-container/chat-container.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 
 export function tokenGetter() {
@@ -85,7 +87,8 @@ export function tokenGetter() {
       SecurityComponent,
       ChatComponent,
       TestComponent,
-      ChatContainerComponent
+      ChatContainerComponent,
+      UserEditComponent
    ],
    imports: [
       BrowserModule,
@@ -124,6 +127,7 @@ export function tokenGetter() {
       AlertifyService,
       CryptoService,
       MessagesResolver,
+      UserEditResolver,
       NavbarService,
    ],
    bootstrap: [
