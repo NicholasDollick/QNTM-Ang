@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { User } from 'openpgp';
+import { BsModalRef } from 'ngx-bootstrap';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-user-edit',
@@ -9,13 +9,12 @@ import { User } from 'openpgp';
 })
 export class UserEditComponent implements OnInit {
   user: User;
+  closeBtnName: string;
+  title: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.user = data['user'];
-    });
   }
 
 }

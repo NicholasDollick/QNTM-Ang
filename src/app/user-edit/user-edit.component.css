@@ -1,0 +1,12 @@
+.chat_img {
+  width: 15%;
+  display: inline-block;
+}
+
+.modal-body {
+  margin: 13px;
+}
+
+.content {
+  text-align: center;
+}

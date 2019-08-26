@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingModule } from 'ngx-loading';
-import { PaginationModule, BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { PaginationModule, BsDropdownModule, TabsModule, BsDatepickerModule, BsModalService,
+ModalModule} from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -64,6 +65,9 @@ import {
  } from '@angular/material';
 import { ChatContainerComponent } from './livechat/chat-container/chat-container.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { ModalContainerComponent } from 'ngx-bootstrap/modal/public_api';
+
+
 
 
 export function tokenGetter() {
@@ -119,7 +123,8 @@ export function tokenGetter() {
       MatSidenavModule,
       MatProgressSpinnerModule,
       MatTooltipModule,
-      MatDialogModule
+      MatDialogModule,
+      ModalModule.forRoot()
    ],
    providers: [
       AuthService,
@@ -129,9 +134,10 @@ export function tokenGetter() {
       MessagesResolver,
       UserEditResolver,
       NavbarService,
+      BsModalService
    ],
    bootstrap: [
-      AppComponent
+      AppComponent,
    ]
 })
 export class AppModule { }
