@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit {
   constructor(private user: UserService) { }
 
   ngOnInit() {
-    this.name = this.user.getUsername();
+    this.name = this.user.getCurrentUser()['username'];
     console.log(this.name);
     this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
     this.hubConnection.start().then(() => {

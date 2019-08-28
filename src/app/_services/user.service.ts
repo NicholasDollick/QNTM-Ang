@@ -25,11 +25,11 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
 
-  getUsername(): string {
+  getCurrentUser(): User {
       if (localStorage.getItem('user') === null) {
-        return JSON.parse(sessionStorage.getItem('user'))['username'];
+        return JSON.parse(sessionStorage.getItem('user'))['user'];
      } else {
-       return JSON.parse(localStorage.getItem('user'))['username'];
+       return JSON.parse(localStorage.getItem('user'))['user'];
      }
   }
 

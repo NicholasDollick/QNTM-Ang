@@ -66,6 +66,7 @@ import {
 import { ChatContainerComponent } from './livechat/chat-container/chat-container.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { ModalContainerComponent } from 'ngx-bootstrap/modal/public_api';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 
@@ -124,7 +125,8 @@ export function tokenGetter() {
       MatProgressSpinnerModule,
       MatTooltipModule,
       MatDialogModule,
-      ModalModule.forRoot()
+      ModalModule.forRoot(),
+      FileUploadModule
    ],
    providers: [
       AuthService,

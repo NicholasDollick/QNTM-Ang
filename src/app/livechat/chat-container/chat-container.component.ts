@@ -5,6 +5,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { UserEditComponent } from 'src/app/user-edit/user-edit.component';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-chat-container',
@@ -14,19 +15,24 @@ import { UserEditComponent } from 'src/app/user-edit/user-edit.component';
 export class ChatContainerComponent implements OnInit {
   name = '';
   bsModalRef: BsModalRef;
+  user: User;
 
-  constructor(private user: UserService, private auth: AuthService, private alertify: AlertifyService,
+  constructor(private userService: UserService, private auth: AuthService, private alertify: AlertifyService,
     private router: Router, private modalService: BsModalService) { }
 
   ngOnInit() {
-    this.name = this.user.getUsername();
+    this.user = this.userService.getCurrentUser();
+    console.log(this.user);
+    this.name = this.user.username;
   }
 
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('privKey');
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('privKey');
     this.auth.decodedToken = null;
     this.auth.currentUser = null;
     this.alertify.message('logged out');
@@ -35,7 +41,8 @@ export class ChatContainerComponent implements OnInit {
 
   openEdit() {
     const initialState = {
-      title: 'Edit Profile'
+      title: 'Edit Profile',
+      user: this.user
     };
     this.bsModalRef = this.modalService.show(UserEditComponent, {initialState});
     this.bsModalRef.content.closeBtnName = 'Close';

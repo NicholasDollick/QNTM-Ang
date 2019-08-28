@@ -22,14 +22,16 @@ login(model: any, remember: boolean) {
   return this.http.post(this.baseUrl + 'login', model)
   .pipe(map((response: any) => {
     const user = response;
+    console.log(user);
     if (user) {
-      console.log(user);
       if (remember) {
         localStorage.setItem('token', user.token);
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('privKey', user.priv);
       }
       sessionStorage.setItem('token', user.token);
       sessionStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('privKey', user.priv);
       this.decodedToken = this.jwtHelper.decodeToken(user.token);
       this.currentUser = user.user;
     }
@@ -83,6 +85,10 @@ getToken() {
  } else {
   return localStorage.getItem('token');
  }
+}
+
+refreshToken() {
+  this.decodedToken = this.jwtHelper.decodeToken(this.getToken());
 }
 
 }

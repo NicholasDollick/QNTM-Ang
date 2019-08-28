@@ -1,19 +1,33 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-right">{{title}}</h4>
+  <button class="btn btn-debug" *ngIf="testvar" (click)="test()"><i class="fa fa-arrow-left"></i></button>
+  <h4 class="modal-title pull-left">{{title}}</h4>
 </div>
+
 <div class="modal-body">
+  <div *ngIf="testvar" style="text-align: center" class="container">
+    <app-login></app-login>
+  </div>
   
-  <div class="content">
-  <h5><b>Admin</b></h5>
-  <span>
-    <img class="chat_img" src="https://ptetutorials.com/images/user-profile.png" alt="icon">
-  </span>
-    <p>
-    Hello This is where stuff is going to go 
-  </p>
+  <div *ngIf="!testvar" class="content">
+    <input class="photoInput" name='file' id='file' type='file' 
+      ng2FileSelect [uploader]="uploader" (change)="onFileSelected()">
+    <h5><b>Admin</b></h5>
+    <span>
+      <img class="chat_img" src="https://ptetutorials.com/images/user-profile.png" alt="icon">
+    </span>
+    <p class="the icon alignmnet breaks if this isnt here.">
+    </p>
+    <div class="vert-stack">
+      <label for="file" id="test" class="btn btn-debug"><i class="fa fa-camera"></i> Update Avatar Image</label>
+      <button class="btn btn-debug" (click)="test()"><i class="fa fa-lock"></i> Change Password</button>
+      <button class="btn btn-debug"><i class="fa fa-laptop"></i> Add 2FA</button>
+      <button class="btn btn-debug"><i class="fa fa-key"></i> Use Own Private Key</button>
+      <button class="btn btn-danger">{{uploader?.queue?.length}}</button>
+   </div>
   </div>
 
 </div>
+
 <div class="modal-footer">
   <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
 </div>

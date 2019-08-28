@@ -1,5 +1,5 @@
 .chat_img {
-  width: 15%;
+  width: 25%;
   display: inline-block;
 }
 
@@ -9,4 +9,31 @@
 
 .content {
   text-align: center;
+}
+
+.vert-stack {
+  display: inline-block;
+}
+
+.vert-stack button {
+  display: block;
+  margin-bottom: 8px;
+  outline: 0 0 1px 0;
+}
+
+.modal-headere {
+  background: lightgray;
+}
+
+.photoInput {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#test {
+  cursor: pointer;
 }
