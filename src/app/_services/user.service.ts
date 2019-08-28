@@ -33,6 +33,10 @@ export class UserService {
      }
   }
 
+  setMainPhoto(userId: number, id: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+  }
+
   getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
     const paginatedResults: PaginatedResults<Message[]> = new PaginatedResults<Message[]>();
 

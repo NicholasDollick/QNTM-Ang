@@ -11,9 +11,9 @@
   <div *ngIf="!testvar" class="content">
     <input class="photoInput" name='file' id='file' type='file' 
       ng2FileSelect [uploader]="uploader" (change)="onFileSelected()">
-    <h5><b>Admin</b></h5>
+    <h5><b>{{name}}</b></h5>
     <span>
-      <img class="chat_img" src="https://ptetutorials.com/images/user-profile.png" alt="icon">
+      <img class="chat_img" src="{{user.photoUrl}}" alt="icon">
     </span>
     <p class="the icon alignmnet breaks if this isnt here.">
     </p>
