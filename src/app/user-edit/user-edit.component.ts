@@ -23,7 +23,6 @@ export class UserEditComponent implements OnInit {
   name: string;
   photoUrl: string;
   currentMain: Photo;
-  @Output() getUserPhotoChange = new EventEmitter<string>();
 
   constructor(public bsModalRef: BsModalRef, private auth: AuthService,
     private userService: UserService) { }
@@ -84,7 +83,6 @@ export class UserEditComponent implements OnInit {
       this.currentMain = this.photos.filter(p => p.isMain === true)[0];
       this.currentMain.isMain = false;
       photo.isMain = true;
-      this.getUserPhotoChange.emit(photo.url);
       this.updateUserPhoto(photo.url);
     });
   }

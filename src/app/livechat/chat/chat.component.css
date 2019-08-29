@@ -132,3 +132,7 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background: grey; 
 }
+
+img {
+  border-radius: 50%;
+}

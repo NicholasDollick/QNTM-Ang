@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { UserService } from '../../_services/user.service';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-chat',
@@ -12,13 +13,16 @@ export class ChatComponent implements OnInit {
   name = '';
   message = '';
   messages: string[] = [];
+  @Input() photoUrl: string;
+  // currentUser = this.user.getCurrentUser();
+  @Input() currentUser: User;
   @ViewChild('msgList') msgHist: ElementRef;
 
   constructor(private user: UserService) { }
 
   ngOnInit() {
-    this.name = this.user.getCurrentUser()['username'];
-    console.log(this.name);
+    this.name = this.currentUser.username;
+    console.log(this.currentUser);
     this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
     this.hubConnection.start().then(() => {
       console.log('Connection Started');
@@ -33,7 +37,7 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(): void {
-    this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
+    this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, photoUrl: this.photoUrl}));
     // this.messages.push(this.message); // this is a temporary test change
     this.message = '';
   }
