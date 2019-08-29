@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { User } from '../_models/user';
 import { FileUploader } from 'ng2-file-upload';
@@ -21,19 +21,21 @@ export class UserEditComponent implements OnInit {
   baseUrl = environment.apiUrl;
   photos: Photo[];
   name: string;
+  photoUrl: string;
+  currentMain: Photo;
+  @Output() getUserPhotoChange = new EventEmitter<string>();
 
-  constructor(public bsModalRef: BsModalRef, private auth: AuthService, private userService: UserService) { }
+  constructor(public bsModalRef: BsModalRef, private auth: AuthService,
+    private userService: UserService) { }
 
   ngOnInit() {
     if (this.auth.decodedToken === undefined) {
       this.auth.refreshToken();
     }
+    this.auth.photoUrl.subscribe(url => this.photoUrl = url);
     this.testvar = false;
-    console.log(this.user);
     this.name = this.user.username;
     this.photos = this.user.photos;
-    console.log(this.user.photos);
-    console.log(this.photos.length);
     this.initializeUploader();
   }
 
@@ -59,7 +61,9 @@ export class UserEditComponent implements OnInit {
           isMain: res.isMain,
           description: res.description,
         };
-        this.photos.push(photo);
+        this.setMain(photo);
+        this.user.photoUrl = photo.url;
+        this.auth.changeUserPhoto(photo.url);
       }
     };
   }
@@ -70,7 +74,6 @@ export class UserEditComponent implements OnInit {
 
   onFileSelected() {
     this.uploader.uploadAll();
-    // this.setMain(this.photos[this.photos.length - 1]);
   }
 
   setMain(photo: Photo) {
@@ -78,8 +81,24 @@ export class UserEditComponent implements OnInit {
       this.auth.refreshToken();
     }
     this.userService.setMainPhoto(this.auth.decodedToken.nameid, photo.id).subscribe(res => {
-      console.log('this works');
+      this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+      this.currentMain.isMain = false;
+      photo.isMain = true;
+      this.getUserPhotoChange.emit(photo.url);
+      this.updateUserPhoto(photo.url);
     });
+  }
+
+  updateUserPhoto(newUrl: string) {
+    if (localStorage.getItem('user') === null) {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      user['user']['photoUrl'] = newUrl;
+      sessionStorage.setItem('user', JSON.stringify(user));
+   } else {
+     const user = JSON.parse(localStorage.getItem('user'));
+     user['user']['photoUrl'] = newUrl;
+     localStorage.setItem('user', JSON.stringify(user));
+   }
   }
 
 }

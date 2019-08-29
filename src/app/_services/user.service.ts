@@ -25,6 +25,10 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
 
+  updateUser(id: number, user: User) {
+    return this.http.put(this.baseUrl + 'users/' + id, user);
+  }
+
   getCurrentUser(): User {
       if (localStorage.getItem('user') === null) {
         return JSON.parse(sessionStorage.getItem('user'))['user'];

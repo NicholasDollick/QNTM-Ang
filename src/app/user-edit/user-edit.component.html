@@ -13,7 +13,7 @@
       ng2FileSelect [uploader]="uploader" (change)="onFileSelected()">
     <h5><b>{{name}}</b></h5>
     <span>
-      <img class="chat_img" src="{{user.photoUrl}}" alt="icon">
+      <img class="user_img" src="{{photoUrl}}" alt="{{name}}">
     </span>
     <p class="the icon alignmnet breaks if this isnt here.">
     </p>
@@ -22,7 +22,6 @@
       <button class="btn btn-debug" (click)="test()"><i class="fa fa-lock"></i> Change Password</button>
       <button class="btn btn-debug"><i class="fa fa-laptop"></i> Add 2FA</button>
       <button class="btn btn-debug"><i class="fa fa-key"></i> Use Own Private Key</button>
-      <button class="btn btn-danger">{{uploader?.queue?.length}}</button>
    </div>
   </div>
 

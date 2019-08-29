@@ -13,17 +13,19 @@ import { User } from 'src/app/_models/user';
   styleUrls: ['./chat-container.component.css']
 })
 export class ChatContainerComponent implements OnInit {
-  name = '';
   bsModalRef: BsModalRef;
   user: User;
+  photoUrl: string;
 
   constructor(private userService: UserService, private auth: AuthService, private alertify: AlertifyService,
-    private router: Router, private modalService: BsModalService) { }
+    private router: Router, private modalService: BsModalService, ) { }
 
   ngOnInit() {
+    this.auth.photoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
     this.user = this.userService.getCurrentUser();
-    console.log(this.user);
-    this.name = this.user.username;
+    if (this.user['photoUrl'] !== null) {
+      this.auth.changeUserPhoto(this.user['photoUrl']);
+    }
   }
 
   logout() {

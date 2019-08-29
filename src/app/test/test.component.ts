@@ -25,7 +25,7 @@ export class TestComponent implements OnInit {
   constructor(private user: UserService, private crypto: CryptoService) { }
 
   ngOnInit() {
-    this.name = this.user.getUsername();
+    // this.name = this.user.getUsername();
     this.privateKey = JSON.parse(sessionStorage.getItem('user'))['priv'];
     this.publicKey = JSON.parse(sessionStorage.getItem('user'))['pub'];
 

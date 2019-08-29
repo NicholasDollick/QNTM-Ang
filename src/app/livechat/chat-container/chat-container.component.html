@@ -9,9 +9,9 @@
             <div class="dropdown" dropdown>
               <div class="user-controller dropdown-toggle" dropdownToggle>
               <span>
-                <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="icon"></div>
+                <div class="chat_img"><img src="{{photoUrl}}" alt="icon"></div>
               </span>
-              <a class="text-light ml-4"> Hello {{this.name}} </a>
+              <a class="text-light ml-4"> Hello {{user.username}} </a>
               <div class="dropdown-menu dropdown-menu-right mt-1 mr-2" *dropdownMenu>
                 <a class="dropdown-item" (click)="openEdit()"><i class="fa fa-user"></i> My Account</a>
                 <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Log Out</a>

@@ -143,3 +143,7 @@ img{ max-width:100%;}
     background: #464646;
     padding: 20px 0 32px 10px;
 }
+
+img {
+  border-radius: 50%;
+}

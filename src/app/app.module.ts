@@ -136,7 +136,7 @@ export function tokenGetter() {
       MessagesResolver,
       UserEditResolver,
       NavbarService,
-      BsModalService
+      BsModalService,
    ],
    bootstrap: [
       AppComponent,
