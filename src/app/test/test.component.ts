@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { UserService } from '../_services/user.service';
 import { CryptoService } from '../_services/crypto.service';
+import { Onlineuser } from '../_models/onlineuser';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-test',
@@ -22,52 +24,45 @@ export class TestComponent implements OnInit {
   privateKey: string;
   publicKey: string;
 
-  constructor(private user: UserService, private crypto: CryptoService) { }
+  constructor(private user: UserService, private crypto: CryptoService, private auth: AuthService) { }
 
   ngOnInit() {
-    // this.name = this.user.getUsername();
+    this.name = this.user.getCurrentUser()['username'];
     this.privateKey = JSON.parse(sessionStorage.getItem('user'))['priv'];
     this.publicKey = JSON.parse(sessionStorage.getItem('user'))['pub'];
+    const token = '?token=' + this.auth.getToken();
 
-    this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
+    this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/pm' + token).build();
     this.hubConnection.start().then(() => {
       console.log('Connection Started');
+      this.hubConnection.invoke('Join');
     }).catch(err => {
       console.log('Error starting connection');
-    });
-    /*
-    this.hubConnection.on('sendToAll', (name: string, message: string) => {
-      const text = `${name}: ${message}`;
-      if (name !== this.name) {
-        console.log('this wasnt my message');
-      } else {
-        console.log('this was my message');
-      }
-      const test = JSON.stringify({username: name, msg: message, sentByMe: true});
-      this.messages.push(JSON.parse(test));
+      this.hubConnection.invoke('Leave');
     });
 
-    */
-    this.hubConnection.on('RecievedMessage', (data: string) => {
+    this.hubConnection.on('SendPm', (data: string) => {
       console.log(JSON.parse(data));
       this.messages.push(JSON.parse(data));
-      // const message = await this.crypto.decrypt(data, this.publicKey, this.privateKey, 'asdf123');
-      // console.log(message);
-      // this.messages.push(JSON.parse(message));
     });
+
+    this.hubConnection.on('Joined', (onlineUser: Onlineuser) => {
+      console.log('Joined received');
+      // this.store.dispatch(new directMessagesActions.JoinSent());
+      console.log(onlineUser);
+  });
+
+  this.hubConnection.on('NewOnlineUser', (onlineUser: Onlineuser) => {
+    console.log('NewOnlineUser received');
+    console.log(onlineUser);
+    // this.store.dispatch(new directMessagesActions.ReceivedNewOnlineUser(onlineUser));
+});
+    this.hubConnection.on('OnlineUsers', (onlineUsers: Onlineuser[]) => {
+      console.log('OnlineUsers received');
+      console.log(onlineUsers);
+  });
   }
 
-sendMessage1() {
-  this.hubConnection.invoke('sendToAll', this.name, this.message).catch(err => {
-    console.error(err);
-  });
-}
-
-sendMessage() {
-  // this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, sentByMe: true}));
-  this.hubConnection.invoke('SendMessageToGroup', 'PrivateChat', JSON.stringify({username: this.name, msg: this.message}));
-  this.message = '';
-}
 
 async sendEncrypt() {
   const msg = this.message;
@@ -85,7 +80,7 @@ async sendEncrypt() {
 sendDirect() {
   console.log(this.name);
   console.log(this.message);
-  this.hubConnection.invoke('SendPrivateMessage', this.name, this.message);
+  this.hubConnection.invoke('SendDirectMessage', this.name, this.message);
   this.message = '';
 }
 
