@@ -14,6 +14,7 @@ export class TestComponent implements OnInit {
   private hubConnection: HubConnection;
   name = '';
   message = '';
+  toUser = '';
   messages: string[] = [];
 
   conversations: any;
@@ -78,9 +79,10 @@ async sendEncrypt() {
 }
 
 sendDirect() {
-  console.log(this.name);
-  console.log(this.message);
-  this.hubConnection.invoke('SendDirectMessage', this.name, this.message);
+  // push your own message for display
+  this.messages.push(JSON.parse(`{"username": "${this.name}", "msg": "${this.message}"}`));
+  // send direct message to specified user
+  this.hubConnection.invoke('SendDirectMessage', this.toUser, JSON.stringify({username: this.name, msg: this.message}));
   this.message = '';
 }
 

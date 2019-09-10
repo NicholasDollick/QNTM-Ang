@@ -36,6 +36,8 @@
               <input type="text" [(ngModel)]="message" required 
               name="message" id="message" class="write_msg" 
               placeholder="Type a message" />
+              <input type="text" [(ngModel)]="toUser" required name ="toUser" id="toUser"
+              placeholder="To..." />
               <button class="msg_send_btn" id="sendmessage" [disabled]="!chatForm.valid">
                 <i class="fa fa-paper-plane-o"></i>
               </button>
