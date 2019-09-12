@@ -1,0 +1,26 @@
+.splash {
+
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+  }
+  
+  .splash-fill {
+    display: inline-block;
+    height: 617px;
+    width: 100%; 
+    background: white;
+  }
+
+  .splash-content {
+      text-align: center;
+      position: relative;
+      top: 50%;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+
+      
+  }

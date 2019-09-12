@@ -16,6 +16,9 @@ export class ChatContainerComponent implements OnInit {
   bsModalRef: BsModalRef;
   user: User;
   photoUrl: string;
+  activeChatUser: string;
+  isChatting = false;
+  searchForChat = false;
 
   constructor(private userService: UserService, private auth: AuthService, private alertify: AlertifyService,
     private router: Router, private modalService: BsModalService, ) { }
@@ -48,7 +51,20 @@ export class ChatContainerComponent implements OnInit {
     };
     this.bsModalRef = this.modalService.show(UserEditComponent, {initialState});
     this.bsModalRef.content.closeBtnName = 'Close';
+  }
 
+  selectChat() {
+    this.searchForChat = false;
+    this.alertify.success('clicked this one');
+    this.isChatting = true;
+    this.activeChatUser = 'testname';
+  }
+
+  startNewChat() {
+    // do something here?
+    this.isChatting = false;
+    this.alertify.success('hello');
+    this.searchForChat = true;
   }
 
 }

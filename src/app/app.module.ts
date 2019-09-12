@@ -65,8 +65,9 @@ import {
  } from '@angular/material';
 import { ChatContainerComponent } from './livechat/chat-container/chat-container.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
-import { ModalContainerComponent } from 'ngx-bootstrap/modal/public_api';
 import { FileUploadModule } from 'ng2-file-upload';
+import { NewchatComponent } from './livechat/newchat/newchat.component';
+import { SplashComponent } from './livechat/splash/splash.component';
 
 
 
@@ -93,7 +94,9 @@ export function tokenGetter() {
       ChatComponent,
       TestComponent,
       ChatContainerComponent,
-      UserEditComponent
+      UserEditComponent,
+      NewchatComponent,
+      SplashComponent
    ],
    imports: [
       BrowserModule,

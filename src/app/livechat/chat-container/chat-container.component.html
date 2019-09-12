@@ -24,25 +24,44 @@
               <h4>Active Chats</h4>
             </div>
             <div class="srch_bar">
+              <button class="start_new_chat" (click)="startNewChat()">+</button>
+              <!--
               <div class="stylish-input-group">
                 <input type="text" class="search-bar"  placeholder="Search" >
                 <span class="input-group-addon">
                 <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
+                </span> </div>  -->
             </div>
           </div>
           <div class="inbox_chat">
-            <div class="chat_list active_chat">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Elliot Alderson <span class="chat_date">Dec 25</span></h5>
+           <button class="chat_list_btn" (click)="selectChat()">
+              <div class="chat_list active_chat">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5 class="chat_list_username">Elliot Alderson <span class="chat_date">Dec 25</span></h5>
+                  </div>
                 </div>
               </div>
-            </div>
+            </button>
+            <button class="chat_list_btn" (click)="selectChat()">
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5 class="chat_list_username">Elliot Alderson <span class="chat_date">Dec 25</span></h5>
+                  </div>
+                </div>
+              </div>
+            </button>
           </div>
         </div>
-        <app-chat [currentUser]="user" [photoUrl]="photoUrl"></app-chat>
+        <app-newchat *ngIf="searchForChat"></app-newchat>
+        <app-chat *ngIf="isChatting" [currentUser]="user" [chattingWith]="activeChatUser" [photoUrl]="photoUrl"></app-chat>
+        <div *ngIf="!isChattting && !searchForChat">
+          <!--<app-splash></app-splash>-->
+          <app-newchat></app-newchat> <!-- this is only here for easy of testing and formatting -->
+        </div>
       </div>
       
     </div>

@@ -60,6 +60,29 @@ img{ max-width:100%;}
 
 .active_chat{ background:#ebebeb;}
 
+.chat_list_btn {
+  background:none;
+  border: 0;
+  border-radius: 0px;
+  width: 100%;
+  box-shadow: none;
+  outline: none;
+}
+
+.start_new_chat {
+  background: none;
+  border: 0;
+  border-radius: 0px;
+  box-shadow: none;
+  outline: none;
+  color: #05728f;
+  font-size: 24px;
+}
+
+.chat_list_username {
+  text-align: left;
+}
+
 .incoming_msg_img {
   display: inline-block;
   width: 6%;

@@ -16,12 +16,15 @@ export class ChatComponent implements OnInit {
   @Input() photoUrl: string;
   // currentUser = this.user.getCurrentUser();
   @Input() currentUser: User;
+  @Input() chattingWith: string;
   @ViewChild('msgList') msgHist: ElementRef;
 
   constructor(private user: UserService) { }
 
   ngOnInit() {
     this.name = this.currentUser.username;
+    this.messages.push(`Chatting with: ${this.chattingWith}`);
+    console.log(`Chatting with: ${this.chattingWith}`);
     console.log(this.currentUser);
     this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
     this.hubConnection.start().then(() => {
