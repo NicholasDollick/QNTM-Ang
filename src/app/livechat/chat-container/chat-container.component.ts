@@ -67,4 +67,9 @@ export class ChatContainerComponent implements OnInit {
     this.searchForChat = true;
   }
 
+  closeNewChat(val: boolean) {
+    console.log(val);
+    this.searchForChat = val;
+  }
+
 }

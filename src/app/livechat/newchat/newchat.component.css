@@ -1,3 +1,20 @@
-p {
-    background: white;
+
+.container {
+    height:100%;
+    position: absolute;
+    width: 100%;
+}
+
+.header {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    top: 0;
+}
+
+.footer {
+    position: relative;
+    width: 100%;
+    height: auto;
+    bottom: 0;
 }

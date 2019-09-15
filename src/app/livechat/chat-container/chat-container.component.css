@@ -8,13 +8,14 @@ img{ max-width:100%;}
 }
 .inbox_msg {
   border: 1px solid #c4c4c4;
+  background: white;
   clear: both;
   overflow: hidden;
 }
 .top_spac{ margin: 20px 0 0;}
 
 
-.recent_heading {float: left; width:40%;}
+.recent_heading {float: left; width:40%;} 
 .srch_bar {
   display: inline-block;
   text-align: right;
@@ -169,4 +170,9 @@ img{ max-width:100%;}
 
 img {
   border-radius: 50%;
+}
+
+.app-container {
+  display:flex;
+  position: relative;
 }

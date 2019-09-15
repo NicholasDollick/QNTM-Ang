@@ -56,11 +56,14 @@
             </button>
           </div>
         </div>
+        <div class="mesgs">
+           <app-newchat (close)="closeNewChat($event)"></app-newchat> <!-- this is only here for easy of testing and formatting -->
+        </div>
         <app-newchat *ngIf="searchForChat"></app-newchat>
         <app-chat *ngIf="isChatting" [currentUser]="user" [chattingWith]="activeChatUser" [photoUrl]="photoUrl"></app-chat>
-        <div *ngIf="!isChattting && !searchForChat">
+        <div *ngIf="!isChattting && !searchForChat" class="app-container">
           <!--<app-splash></app-splash>-->
-          <app-newchat></app-newchat> <!-- this is only here for easy of testing and formatting -->
+         
         </div>
       </div>
       
