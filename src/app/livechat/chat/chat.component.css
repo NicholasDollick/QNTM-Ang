@@ -1,6 +1,6 @@
 
 img { 
-  max-width:100%;
+  max-width: 70%;
 }
 
 .inbox_msg {
@@ -9,9 +9,6 @@ img {
   overflow: hidden;
 }
 
-.top_spac{ margin: 20px 0 0;}
-
-.recent_heading {float: left; width:40%;}
 
 .incoming_msg_img {
   display: inline-block;
@@ -45,7 +42,7 @@ img {
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
-  width: 100%;
+  height: auto;
 }
 
  .sent_msg p {
@@ -86,7 +83,7 @@ img {
 .type_msg {
   border-top: 1px solid #c4c4c4;
   position: relative;
-  width: 60%;
+  width: 100%;
   float: right;
 }
 
@@ -106,7 +103,7 @@ img {
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
-  height: 560px;
+  height: 91vh;
   padding: 5px;
   overflow-y: auto;
 }

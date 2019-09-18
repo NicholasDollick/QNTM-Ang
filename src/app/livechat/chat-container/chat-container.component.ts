@@ -19,6 +19,7 @@ export class ChatContainerComponent implements OnInit {
   activeChatUser: string;
   isChatting = false;
   searchForChat = false;
+  showSplash = true;
 
   constructor(private userService: UserService, private auth: AuthService, private alertify: AlertifyService,
     private router: Router, private modalService: BsModalService, ) { }
@@ -55,6 +56,7 @@ export class ChatContainerComponent implements OnInit {
 
   selectChat() {
     this.searchForChat = false;
+    this.showSplash = false;
     this.alertify.success('clicked this one');
     this.isChatting = true;
     this.activeChatUser = 'testname';
@@ -63,6 +65,7 @@ export class ChatContainerComponent implements OnInit {
   startNewChat() {
     // do something here?
     this.isChatting = false;
+    this.showSplash = false;
     this.alertify.success('hello');
     this.searchForChat = true;
   }
@@ -70,6 +73,7 @@ export class ChatContainerComponent implements OnInit {
   closeNewChat(val: boolean) {
     console.log(val);
     this.searchForChat = val;
+    this.showSplash = true;
   }
 
 }
