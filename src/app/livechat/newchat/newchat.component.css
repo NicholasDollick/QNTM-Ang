@@ -1,8 +1,9 @@
 
 .container {
-    height:100%;
+    height: 96%;
     position: absolute;
-    width: 100%;
+    width: 50%;
+    text-align: center;
 }
 
 .header {
@@ -13,8 +14,29 @@
 }
 
 .footer {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: auto;
     bottom: 0;
+}
+
+.stuff {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+}
+
+.back-button {
+    float: left;
+    margin-top: 10px;
+}
+
+.back-button-text {
+    float: left;
+    margin-top: 17px;
+}
+
+.stylish-input-group {
+    float: right;
+    margin-top: 15px;
 }

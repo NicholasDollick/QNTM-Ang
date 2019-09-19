@@ -76,4 +76,8 @@ export class ChatContainerComponent implements OnInit {
     this.showSplash = true;
   }
 
+  chatCreated(user: User) {
+    console.log(user);
+  }
+
 }

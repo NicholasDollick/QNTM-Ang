@@ -1,33 +1,19 @@
 <div class="container">
   <div class="content">
-    <div class="header">This is the header</div>
-      stuff goes here?
-    <div class="footer">dude what the fuck</div>
-  </div>
-</div>
-
-<!--
-<div class="modal-header">
-  <button class="btn btn-debug" (click)="setClose()"><i class="fa fa-arrow-left"></i></button>
-  <h4 class="modal-title pull-left"></h4>
-                  <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
+    <div class="header">
+      <button class="btn btn-debug back-button" (click)="setClose()"><i class="fa fa-arrow-left"></i></button>
+      <p class="back-button-text">New Conversation</p>
+      <div class="stylish-input-group">
+                <input type="text" class="search-bar"  placeholder="Search By Username" >
                 <span class="input-group-addon">
                 <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>  
-</div>
-
-<div class="modal-body">
-  <div class="test">
-  Hello World
+                </span> 
+      </div>  
     </div>
-</div>
-
-
-<div class="modal-footer">
-  <div class="footer-btns">
-    <button type="button" class="btn btn-info">Wut</button>
-    <button class="btn btn-success">ESKETIT</button>
+      <p class="stuff">stuff goes here?</p>
+    <div class="footer">
+      <button type="button" class="btn btn-info mr-3">CANCEL</button>
+      <button class="btn btn-success" (click)="createChat()">CREATE</button>
+    </div>
   </div>
 </div>
--->

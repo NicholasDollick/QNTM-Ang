@@ -5,7 +5,7 @@
 }
 
 img { 
-  max-width: 100%;
+  max-width: 90%;
 }
 
 .inbox_people {
@@ -72,6 +72,17 @@ img {
 .inbox_chat { height: 80vh; overflow-y: scroll;}
 
 .active_chat{ background:#ebebeb;}
+
+.user-info-container {
+  display: inline;
+  position: relative;
+  margin: 10px;
+}
+
+.user_img {
+  float: left;
+  width: 9%;
+}
 
 .chat_list_btn {
   background:none;

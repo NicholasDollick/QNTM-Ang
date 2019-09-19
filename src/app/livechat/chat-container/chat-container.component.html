@@ -7,10 +7,10 @@
 
             <div class="dropdown" dropdown>
               <div class="user-controller dropdown-toggle" dropdownToggle>
-              <span>
-                <div class="chat_img"><img src="{{photoUrl}}" alt="icon"></div>
-              </span>
-              <a class="text-light ml-4"> Hello {{user.username}} </a>
+              <div class="user-info-container">
+                <span class="text-light ml-1 mt-4"> Hello {{user.username}} </span>
+                <div class="user_img"><img src="{{photoUrl}}" alt="icon"></div>
+              </div>
               <div class="dropdown-menu dropdown-menu-right mt-1 mr-2" *dropdownMenu>
                 <a class="dropdown-item" (click)="openEdit()"><i class="fa fa-user"></i> My Account</a>
                 <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Log Out</a>
@@ -24,12 +24,6 @@
             </div>
             <div class="srch_bar">
               <button class="start_new_chat" (click)="startNewChat()">+</button>
-              <!--
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>  -->
             </div>
           </div>
           <div class="inbox_chat">
@@ -56,10 +50,9 @@
           </div>
         </div>
         <div class="mesgs">
-          <app-newchat *ngIf="searchForChat"></app-newchat>
+          <app-newchat *ngIf="searchForChat" (close)="closeNewChat($event)" (chatWith)="chatCreated($event)"></app-newchat>
           <app-chat *ngIf="isChatting" [currentUser]="user" [chattingWith]="activeChatUser" [photoUrl]="photoUrl"></app-chat>
           <app-splash *ngIf="showSplash"></app-splash>
-           <!--<app-newchat (close)="closeNewChat($event)"></app-newchat> <!-\- this is only here for easy of testing and formatting -->
         </div>
 
       </div>
