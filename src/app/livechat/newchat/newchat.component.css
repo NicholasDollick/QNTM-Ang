@@ -40,3 +40,25 @@
     float: right;
     margin-top: 15px;
 }
+
+img { 
+    max-width: 90%;
+}
+
+
+.chat_ib h5 { 
+    font-size:15px; 
+    color:#464646; 
+}
+
+.chat_ib p { 
+    font-size:14px; 
+    color:#989898; 
+}
+
+.chat_img {
+  width: 60%;
+}
+
+
+

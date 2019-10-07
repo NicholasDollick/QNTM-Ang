@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/_models/user';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-newchat',
@@ -9,8 +10,11 @@ import { User } from 'src/app/_models/user';
 export class NewchatComponent implements OnInit {
   @Output() close = new EventEmitter<boolean>();
   @Output() chatWith = new EventEmitter<User>();
+  searchName = '';
+  foundUser: User;
+  lastUpdate: number;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -20,7 +24,27 @@ export class NewchatComponent implements OnInit {
   }
 
   createChat() {
-    this.chatWith.emit({username: 'Test', id: 16, photoUrl: 'this is a broken link lol'});
+    this.userService.findUser('admin').toPromise().then(res => {
+      this.chatWith.emit(res);
+    });
+  }
+
+  onSubmit(test: string) {
+    console.log(test);
+
+  }
+
+  valuechange(newVal) {
+    this.userService.findUser(newVal).toPromise().then(res => {
+      console.log(res);
+      if (res !== null) {
+        this.foundUser = res;
+      }
+    });
+  }
+
+  searchForUser() {
+    console.log(this.searchName);
   }
 
 }

@@ -1,18 +1,30 @@
 <div class="container">
   <div class="content">
     <div class="header">
-      <button class="btn btn-debug back-button" (click)="setClose()"><i class="fa fa-arrow-left"></i></button>
-      <p class="back-button-text">New Conversation</p>
-      <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search By Username" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> 
-      </div>  
+      <form (ngSubmit)="onSubmit(searchForm.value)" #searchForm="ngForm">
+        <button class="btn btn-debug back-button" (click)="setClose()"><i class="fa fa-arrow-left"></i></button>
+        <p class="back-button-text">New Conversation</p>
+        <div class="stylish-input-group">
+            <input type="text" class="search-bar" name="searchName" [(ngModel)]="searchName"
+              required (ngModelChange)="valuechange($event)" placeholder="Search By Username" >
+            <span class="input-group-addon">
+              <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+            </span> 
+        </div>  
+      </form>
     </div>
-      <p class="stuff">stuff goes here?</p>
+      <div class="stuff">
+      <div *ngIf="foundUser !== undefined">
+        <div class="chat_people">
+          <div class="chat_img"> <img src={{foundUser.photoUrl}} alt="img"> </div>
+            <div class="chat_ib">
+              <h5 class="chat_list_username">{{foundUser.username | titlecase}}</h5>
+            </div>
+        </div>
+      </div>
+      </div>
     <div class="footer">
-      <button type="button" class="btn btn-info mr-3">CANCEL</button>
+      <button type="button" (click)="setClose()" class="btn btn-info mr-3">CANCEL</button>
       <button class="btn btn-success" (click)="createChat()">CREATE</button>
     </div>
   </div>
