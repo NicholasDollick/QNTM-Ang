@@ -25,7 +25,7 @@
       </div>
     <div class="footer">
       <button type="button" (click)="setClose()" class="btn btn-info mr-3">CANCEL</button>
-      <button class="btn btn-success" (click)="createChat()">CREATE</button>
+      <button class="btn btn-success" [disabled]="!searchForm.valid || foundUser == null" (click)="createChat()">CREATE</button>
     </div>
   </div>
 </div>

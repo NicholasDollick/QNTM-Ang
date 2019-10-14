@@ -24,27 +24,27 @@ export class NewchatComponent implements OnInit {
   }
 
   createChat() {
-    this.userService.findUser('admin').toPromise().then(res => {
-      this.chatWith.emit(res);
-    });
+    // console.log(this.foundUser);
+    this.chatWith.emit(this.foundUser);
+    this.close.emit(false);
   }
 
   onSubmit(test: string) {
-    console.log(test);
-
-  }
-
-  valuechange(newVal) {
-    this.userService.findUser(newVal).toPromise().then(res => {
-      console.log(res);
+    // console.log(test['searchName']);
+    this.userService.findUser(test['serachName']).toPromise().then(res => {
       if (res !== null) {
         this.foundUser = res;
       }
     });
   }
 
-  searchForUser() {
-    console.log(this.searchName);
+  valuechange(newVal) {
+    this.userService.findUser(newVal).toPromise().then(res => {
+      // console.log(res);
+      if (res !== null) {
+        this.foundUser = res;
+      }
+    });
   }
 
 }

@@ -27,8 +27,21 @@
             </div>
           </div>
           <div class="inbox_chat">
+            <div *ngFor="let chat of activeChats">
+              <button class="chat_list_btn" (click)="selectChat()">
+                <div class="chat_list active_chat">
+                  <div class="chat_people">
+                    <div class="chat_img"> <img src="{{chat['photoUrl']}}" alt="icon"> </div>
+                    <div class="chat_ib">
+                      <h5 class="chat_list_username">{{chat['username'] | titlecase}}<span class="chat_date">Oct 31</span> </h5>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+
            <button class="chat_list_btn" (click)="selectChat()">
-              <div class="chat_list active_chat">
+              <div class="chat_list">
                 <div class="chat_people">
                   <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                   <div class="chat_ib">
@@ -47,6 +60,7 @@
                 </div>
               </div>
             </button>
+            
           </div>
         </div>
         <div class="mesgs">

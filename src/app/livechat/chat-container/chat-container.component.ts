@@ -20,6 +20,7 @@ export class ChatContainerComponent implements OnInit {
   isChatting = false;
   searchForChat = false;
   showSplash = true;
+  activeChats = [];
 
   constructor(private userService: UserService, private auth: AuthService, private alertify: AlertifyService,
     private router: Router, private modalService: BsModalService, ) { }
@@ -77,7 +78,8 @@ export class ChatContainerComponent implements OnInit {
   }
 
   chatCreated(user: User) {
-    console.log(user);
+    this.activeChats.push(user);
+    console.log(this.activeChats);
   }
 
 }
