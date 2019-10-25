@@ -25,12 +25,24 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
 
+  getAuthedUser(id: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/' + id + '/update');
+  }
+
   findUser(username: string): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'users/find/' + username);
   }
 
   updateUser(id: number, user: User) {
     return this.http.put(this.baseUrl + 'users/' + id, user);
+  }
+
+  getChats(id: number) {
+    return this.http.get(this.baseUrl + 'users/' + id + '/chats/getchats');
+  }
+
+  createChat(id: number, model: any) {
+    return this.http.post(this.baseUrl + 'users/' + id + '/chats', model);
   }
 
   getCurrentUser(): User {

@@ -8,7 +8,7 @@
             <div class="dropdown" dropdown>
               <div class="user-controller dropdown-toggle" dropdownToggle>
               <div class="user-info-container">
-                <span class="text-light ml-1 mt-4"> Hello {{user.username}} </span>
+                  <span *ngIf="user !== undefined" class="text-light ml-1 mt-4"> Hello {{user.username}} </span>
                 <div class="user_img"><img src="{{photoUrl}}" alt="icon"></div>
               </div>
               <div class="dropdown-menu dropdown-menu-right mt-1 mr-2" *dropdownMenu>
@@ -28,7 +28,7 @@
           </div>
           <div class="inbox_chat">
             <div *ngFor="let chat of activeChats">
-              <button class="chat_list_btn" (click)="selectChat()">
+              <button class="chat_list_btn" (click)="selectChat(chat)">
                 <div class="chat_list active_chat">
                   <div class="chat_people">
                     <div class="chat_img"> <img src="{{chat['photoUrl']}}" alt="icon"> </div>

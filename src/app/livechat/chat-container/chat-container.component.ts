@@ -27,10 +27,23 @@ export class ChatContainerComponent implements OnInit {
 
   ngOnInit() {
     this.auth.photoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
-    this.user = this.userService.getCurrentUser();
-    if (this.user['photoUrl'] !== null) {
-      this.auth.changeUserPhoto(this.user['photoUrl']);
-    }
+    this.auth.refreshToken();
+    this.userService.getAuthedUser(this.auth.decodedToken.nameid).subscribe(userData => {
+      this.user = userData;
+      console.log(this.user);
+      if (this.user['photoUrl'] !== null) {
+        this.auth.changeUserPhoto(this.user['photoUrl']);
+      }
+      this.user['activeChats'].forEach(chat => {
+        console.log(chat['username']);
+        this.userService.findUser(chat['username']).subscribe(async res => {
+          console.log(res);
+          if (res !== null) {
+            await this.activeChats.push(res);
+          }
+        });
+      });
+    });
   }
 
   logout() {
@@ -55,31 +68,43 @@ export class ChatContainerComponent implements OnInit {
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 
-  selectChat() {
+  selectChat(user: User) {
     this.searchForChat = false;
     this.showSplash = false;
-    this.alertify.success('clicked this one');
+    // this.alertify.success('clicked this one');
     this.isChatting = true;
-    this.activeChatUser = 'testname';
+    this.activeChatUser = user.username;
+    console.log(user.username);
   }
 
   startNewChat() {
-    // do something here?
     this.isChatting = false;
     this.showSplash = false;
-    this.alertify.success('hello');
     this.searchForChat = true;
   }
 
   closeNewChat(val: boolean) {
-    console.log(val);
     this.searchForChat = val;
     this.showSplash = true;
   }
 
   chatCreated(user: User) {
-    this.activeChats.push(user);
-    console.log(this.activeChats);
+    this.auth.refreshToken();
+    if (user.username !== this.user.username && !(this.activeChats.some(chatWith => chatWith['username'] === user.username))) {
+      // this is a new user
+      this.alertify.success('okay');
+      this.activeChats.push(user);
+      console.log(this.user['activeChats']);
+      this.user['activeChats'] = this.activeChats;
+      this.user.activeChats = this.activeChats;
+      console.log(this.user['activeChats']);
+      this.userService.createChat(this.auth.decodedToken.nameid, { username: user.username, photoUrl: user.photoUrl }).subscribe(() => {
+        this.user = this.userService.getCurrentUser();
+        this.alertify.success('created');
+      });
+    } else {
+      // already chatting with this user
+      this.alertify.error('Already chatting with ' + user.username);
+    }
   }
-
 }

@@ -5,4 +5,5 @@ export interface User {
     username: string;
     photoUrl: string;
     photos?: Photo[];
+    activeChats: User[];
 }
