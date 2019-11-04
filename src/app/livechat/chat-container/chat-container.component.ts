@@ -92,7 +92,6 @@ export class ChatContainerComponent implements OnInit {
     this.auth.refreshToken();
     if (user.username !== this.user.username && !(this.activeChats.some(chatWith => chatWith['username'] === user.username))) {
       // this is a new user
-      this.alertify.success('okay');
       this.activeChats.push(user);
       console.log(this.user['activeChats']);
       this.user['activeChats'] = this.activeChats;

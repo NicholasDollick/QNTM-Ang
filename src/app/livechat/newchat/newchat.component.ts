@@ -29,16 +29,7 @@ export class NewchatComponent implements OnInit {
     this.close.emit(false);
   }
 
-  onSubmit(test: string) {
-    // console.log(test['searchName']);
-    this.userService.findUser(test['serachName']).toPromise().then(res => {
-      if (res !== null) {
-        this.foundUser = res;
-      }
-    });
-  }
-
-  valuechange(newVal) {
+  valuechange(newVal: string) {
     this.userService.findUser(newVal).toPromise().then(res => {
       // console.log(res);
       if (res !== null) {
