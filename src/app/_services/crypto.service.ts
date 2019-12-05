@@ -87,6 +87,20 @@ decryptKey(key: string, password: string) {
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
 
+// testing for more optimal keystorage
+async decryptKey2(key: string, password: string) {
+  const decrypted = CryptoJS.AES.decrypt(key, this.hashPass(password), {
+    keySize: 128 / 8,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7
+  });
+
+  const privKey = (await openpgp.key.readArmored(decrypted.toString(CryptoJS.enc.Utf8))).keys[0];
+  await privKey.decrypt(password);
+
+  return privKey;
+}
+
 // method for testing. Will be removed.
 async verifyKeys(privateKey: string, password: string) {
   console.log(privateKey);
@@ -108,13 +122,12 @@ async encryptDecrypt(privKey: string, publicKey: string, passPhrase: string, mes
 
   openpgp.encrypt(options).then(async cipher => {
     const data = cipher.data;
-    console.log( await this.decrypt(data, publicKey, privKeyObj, passPhrase) );
+    // console.log( await this.decrypt(data, publicKey, privKeyObj, passPhrase) );
   });
 }
 
-async encrypt(publicKey: string, privKey: string, passPhrase: string, message: string) {
-  const privKeyObj = (await openpgp.key.readArmored(this.decryptKey(privKey, passPhrase))).keys[0];
-  await privKeyObj.decrypt(passPhrase);
+async encrypt(publicKey: string, message: string) {
+  const privKeyObj = JSON.parse(sessionStorage.getItem('privateKey'));
 
   const options = {
     message: await openpgp.message.fromText(message),
@@ -125,9 +138,8 @@ async encrypt(publicKey: string, privKey: string, passPhrase: string, message: s
   return openpgp.encrypt(options);
 }
 
-async decrypt(message: string, publicKey: string, privateKey: any, passphrase: string) {
-  const privKeyObj = (await openpgp.key.readArmored(this.decryptKey(privateKey, passphrase))).keys[0];
-  await privKeyObj.decrypt(passphrase);
+async decrypt(message: string, publicKey: string) {
+  const privKeyObj = JSON.parse(sessionStorage.getItem('privateKey'));
 
   const options = {
     message: await openpgp.message.readArmored(message),

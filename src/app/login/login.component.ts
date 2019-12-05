@@ -22,9 +22,19 @@ export class LoginComponent implements OnInit {
   async login() {
     await this.authService.login(this.model, this.remember).subscribe(next => {
       if (this.remember) {
-        localStorage.setItem('privKey', this.crypto.decryptKey(localStorage.getItem('privKey'), this.model['password']));
+        // localStorage.setItem('privKey', this.crypto.decryptKey2(localStorage.getItem('privKey'), this.model['password']));
       } else {
-        sessionStorage.setItem('privKey', this.crypto.decryptKey(sessionStorage.getItem('privKey'), this.model['password']));
+        // sessionStorage.setItem('privKey', this.crypto.decryptKey2(sessionStorage.getItem('privKey'), this.model['password'])
+        // .then(res => {
+        //   console.log(res);
+        //   console.log(typeof(res));
+        // }));
+
+        this.crypto.decryptKey2(sessionStorage.getItem('privKey'), this.model['password']).then(res => {
+          console.log(res);
+          sessionStorage.setItem('privateKey', JSON.stringify(res));
+          console.log(typeof(res));
+        });
       }
       this.alertify.success('logged in successfully');
       this.router.navigate(['/chat']);

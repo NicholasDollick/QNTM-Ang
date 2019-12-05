@@ -57,7 +57,7 @@ export class TestComponent implements OnInit {
     console.log('NewOnlineUser received');
     console.log(onlineUser);
     // this.store.dispatch(new directMessagesActions.ReceivedNewOnlineUser(onlineUser));
-});
+  });
     this.hubConnection.on('OnlineUsers', (onlineUsers: Onlineuser[]) => {
       console.log('OnlineUsers received');
       console.log(onlineUsers);

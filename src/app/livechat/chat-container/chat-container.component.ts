@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/_services/user.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -21,11 +21,12 @@ export class ChatContainerComponent implements OnInit {
   searchForChat = false;
   showSplash = true;
   activeChats = [];
+  private onlineUsers = [];
 
   constructor(private userService: UserService, private auth: AuthService, private alertify: AlertifyService,
     private router: Router, private modalService: BsModalService, ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.auth.photoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
     this.auth.refreshToken();
     this.userService.getAuthedUser(this.auth.decodedToken.nameid).subscribe(userData => {
@@ -47,12 +48,8 @@ export class ChatContainerComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('privKey');
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('privKey');
+    localStorage.clear();
+    sessionStorage.clear();
     this.auth.decodedToken = null;
     this.auth.currentUser = null;
     this.alertify.message('logged out');

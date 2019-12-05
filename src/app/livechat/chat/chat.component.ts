@@ -23,7 +23,6 @@ export class ChatComponent implements OnInit {
   @Input() chattingWith: string;
   @ViewChild('msgList') msgHist: ElementRef;
 
-  private privateKey: string;
   private publicKey: string;
 
   constructor(private user: UserService, private auth: AuthService, private crypto: CryptoService) { }
@@ -31,7 +30,6 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.toUser = this.chattingWith;
     this.name = this.currentUser.username;
-    this.privateKey = JSON.parse(sessionStorage.getItem('user'))['priv'];
     this.publicKey = JSON.parse(sessionStorage.getItem('user'))['pub'];
     const token = '?token=' + this.auth.getToken();
 
@@ -84,8 +82,9 @@ export class ChatComponent implements OnInit {
 async sendEncrypt() {
   const msg = this.message;
   this.message = '';
-  const test = await this.crypto.encrypt(this.publicKey, this.privateKey, 'asdf123',
-  JSON.stringify({username: this.name, msg: msg}));
+  // the method below doesnt make much sense as thats a hardcoded test password.
+  // there has to be a better way to store the key already returned into object form
+  const test = await this.crypto.encrypt(this.publicKey, JSON.stringify({username: this.name, msg: msg}));
 
 
   // console.log( await this.crypto.decrypt(test['data'], this.publicKey, this.privateKey, 'asdf123'));
