@@ -1,5 +1,21 @@
 <body>
-<div class="login-form">
+
+<div class="background-image"></div>
+
+<nav class="navbar navbar-expand-lg fixed-top scrolling-navbar navbar-dark" id="test">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/home']">&lt; return to whatever my url is gonna be<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="login-form mt-5">
     <form #loginForm="ngForm" (ngSubmit)="login()">
 		<div class="avatar">
 			<img src="https://github.com/NicholasDollick/QNTM-WPF/blob/master/QNTMWPFUserInterface/images/dropshadow-and-text.png?raw=true" alt="Avatar">
@@ -25,4 +41,5 @@
     </form>
     <p class="text-center small">Need an account? <a routerLinkActive="active" [routerLink]="['/register']">Register</a></p>
 </div>
+
 </body>
