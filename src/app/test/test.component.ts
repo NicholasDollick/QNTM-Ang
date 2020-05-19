@@ -68,8 +68,7 @@ export class TestComponent implements OnInit {
 async sendEncrypt() {
   const msg = this.message;
   this.message = '';
-  const test = await this.crypto.encrypt(this.publicKey, this.privateKey, 'asdf123',
-  JSON.stringify({username: this.name, msg: msg}));
+  const test = await this.crypto.encrypt(this.publicKey, JSON.stringify({username: this.name, msg: msg}));
 
 
   // console.log( await this.crypto.decrypt(test['data'], this.publicKey, this.privateKey, 'asdf123'));
