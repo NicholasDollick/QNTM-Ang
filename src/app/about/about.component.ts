@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CryptoService } from '../_services/crypto.service';
+
 
 @Component({
   selector: 'app-about',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private crypto: CryptoService) { }
 
   ngOnInit() {
+    this.crypto.encryptFile('asdf', new File(['test'], '../routes.ts')).then(res => {
+      console.log(res);
+    });
+
+    
   }
 
 }

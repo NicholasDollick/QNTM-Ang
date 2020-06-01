@@ -155,6 +155,47 @@ async decrypt(message: string, publicKey: string) {
 
   return plain;
 }
+
+encryptFile(password: string, file: File) {
+  const reader = new FileReader();
+  var encryptedFile;
+
+  reader.onload = async function() {
+    const data = reader.result;
+    console.log(data);
+    encryptedFile = CryptoJS.AES.encrypt("the file contents would go here lol", password, {
+      keySize: 128 / 8,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    
+    console.log(encryptedFile);
+  };
+
+  reader.readAsText(file);
+
+  return encryptedFile;
+}
+
+// would this be a string? or some form of byte array?
+async decryptFile(password: string, message: string,) {
+  const privKeyObj = JSON.parse(sessionStorage.getItem('privateKey'));
+
+  const options = {
+    message: await openpgp.message.readArmored(message),
+    publicKeys: (await openpgp.key.readArmored("publicKey")).keys,
+    privateKeys: [privKeyObj]
+  };
+
+  let plain = '';
+
+  await openpgp.decrypt(options).then(plantext => {
+    plain = (plantext.data).toString();
+  });
+
+  return plain;
+}
+
 }
 /*
 
@@ -167,3 +208,24 @@ this results of the above key pair continue as followed:
 future implementation ideas:
   two passwords: keep login access and private key passes as seperate values
  */
+
+
+
+        //notes:
+            /*
+            Filename is the hash(MD5 or something) of the name + datetime
+            
+            do not accept strangely unicode file names/extentions 
+            regular expression: [a-zA-Z0-9]{1,200}\.[a-zA-Z0-9]{1,10}
+
+            min size: ???? max size: 5mb...this is only POC afterall
+
+            file type whitelist
+
+            integrate virus total api to check files?
+
+            logs for safety? or keep the wild west vibes of no logs ever
+
+            contents will be encrypted blobs by the time they are seen,
+                some of these point may be worth ignoring?
+            */

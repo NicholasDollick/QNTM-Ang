@@ -13,6 +13,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { ChatContainerComponent } from './livechat/chat-container/chat-container.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
+import { StateComponent } from './state/state.component';
 
 
 export const appRoutes: Routes = [
@@ -30,6 +31,7 @@ export const appRoutes: Routes = [
         ]
     },
     {path: 'chat', component: ChatContainerComponent},
+    {path:'state', component: StateComponent},
     {path: 'login', component: LoginComponent, data: { animation: 'isLeft'}},
     {path: 'register', component: RegisterComponent, data: { animation: 'isRight'}},
     {path: 'home', component: HomeComponent},
