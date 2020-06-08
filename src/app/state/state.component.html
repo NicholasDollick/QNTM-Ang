@@ -1,16 +1,4 @@
 
-<html>
-
-	<head>
-		<meta charset="utf-8"/>
-
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-		<link href="http://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet" />
-
-  </head>
-  
-
 
   <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar navbar-dark" id="test">
     <a class="navbar-brand" href="#">
@@ -32,7 +20,7 @@
           <a class="nav-link" [routerLink]="['/security']">Security</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/state']">QNTM State</a>
+          <a class="nav-link" [routerLink]="['/state']">State</a>
         </li>
       </ul>
     </div>
@@ -49,15 +37,13 @@
 
 	<body>
 
+		
 		<a class="back"></a>
 
 		<div id="stage">
-
 			<div id="step1">
 				<div class="content">
-					<h1>What do you want to do?</h1>
-					<a class="button encrypt green">Encrypt a file</a>
-					<a class="button decrypt magenta">Decrypt a file</a>
+					<h1><app-state-upload></app-state-upload></h1>
 				</div>
 			</div>
 
@@ -113,4 +99,4 @@
 
 	</body>
 
-</html>
+

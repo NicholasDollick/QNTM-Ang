@@ -69,6 +69,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { NewchatComponent } from './livechat/newchat/newchat.component';
 import { SplashComponent } from './livechat/splash/splash.component';
 import { StateComponent } from './state/state.component';
+import { StateUploadComponent } from './state-upload/state-upload.component';
+import { StateViewComponent } from './state-view/state-view.component';
 
 
 
@@ -98,7 +100,9 @@ export function tokenGetter() {
       UserEditComponent,
       NewchatComponent,
       SplashComponent,
-      StateComponent
+      StateComponent,
+      StateUploadComponent,
+      StateViewComponent
    ],
    imports: [
       BrowserModule,

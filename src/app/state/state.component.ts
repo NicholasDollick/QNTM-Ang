@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./state.component.css']
 })
 export class StateComponent implements OnInit {
-
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit() {
+    console.log('does this even load?');
   }
 
 }
