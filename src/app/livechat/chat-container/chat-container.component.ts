@@ -48,10 +48,7 @@ export class ChatContainerComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.auth.decodedToken = null;
-    this.auth.currentUser = null;
+    this.auth.logout();
     this.alertify.message('logged out');
     this.router.navigate(['/home']);
   }

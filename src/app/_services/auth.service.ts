@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../_models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
   photoUrl = new BehaviorSubject<string>('https://res.cloudinary.com/dqfhdfq6g/image/upload/v1567036438/icons8-male-user-100.png');
   currentPhotoUrl = this.photoUrl.asObservable();
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, private presence: PresenceService) { }
 
 changeUserPhoto(photoUrl: string) {
   this.photoUrl.next(photoUrl);
@@ -42,6 +43,7 @@ login(model: any, remember: boolean) {
       this.decodedToken = this.jwtHelper.decodeToken(user.token);
       this.currentUser = user.user;
       this.changeUserPhoto(this.currentUser.photoUrl);
+      this.presence.createHubConnection(user);
     }
   })
   );
@@ -97,6 +99,14 @@ getToken() {
 
 refreshToken() {
   this.decodedToken = this.jwtHelper.decodeToken(this.getToken());
+}
+
+logout() {
+  localStorage.clear();
+  sessionStorage.clear();
+  this.decodedToken = null;
+  this.currentUser = null;
+  this.presence.stopHubConnection();
 }
 
 }
