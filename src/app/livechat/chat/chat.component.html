@@ -2,7 +2,7 @@
 
           <div class="msg_history" #msgList> 
             <div *ngIf="messages.length > 0">
-              <div *ngFor="let message of messages">
+              <div *ngFor="let message of (messageService.messageThread$ | async)">
                 <!-- to them -->
                 <div *ngIf="message['username'] == name">
                     <div class="outgoing_msg">
