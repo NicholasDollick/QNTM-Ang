@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { UserEditComponent } from 'src/app/user-edit/user-edit.component';
 import { User } from 'src/app/_models/user';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
   selector: 'app-chat-container',
@@ -24,7 +25,7 @@ export class ChatContainerComponent implements OnInit {
   private onlineUsers = [];
 
   constructor(private userService: UserService, private auth: AuthService, private alertify: AlertifyService,
-    private router: Router, private modalService: BsModalService, ) { }
+    private router: Router, private modalService: BsModalService, private presence: PresenceService) { }
 
   ngOnInit(): void {
     this.auth.photoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);

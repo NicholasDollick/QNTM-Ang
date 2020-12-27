@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { AlertifyService } from './alertify.service';
@@ -10,6 +11,8 @@ import { AlertifyService } from './alertify.service';
 export class PresenceService {
   hubUrl = environment.hubUrl;
   private hubConnection: HubConnection;
+  private onlineUsersSource = new BehaviorSubject<string[]>([]);
+  onlineUsers$ = this.onlineUsersSource.asObservable();
 
   constructor(private alerts: AlertifyService) { }
 
@@ -30,6 +33,10 @@ export class PresenceService {
     this.hubConnection.on('UserIsOffline', username => {
       this.alerts.error(username + ' has disconnected');
     });
+
+    this.hubConnection.on("GetOnlineUsers", (usernames: string[]) => {
+      this.onlineUsersSource.next(usernames);
+    })
   }
 
   stopHubConnection() {

@@ -31,9 +31,19 @@
               <button class="chat_list_btn" (click)="selectChat(chat)">
                 <div class="chat_list active_chat">
                   <div class="chat_people">
-                    <div class="chat_img"> <img src="{{chat['photoUrl']}}" alt="icon"> </div>
+                    <div class="chat_img"> 
+                      <img src="{{chat['photoUrl']}}" alt="icon"> 
+                    </div>
                     <div class="chat_ib">
-                      <h5 class="chat_list_username">{{chat['username'] | titlecase}}<span class="chat_date">Oct 31</span> </h5>
+                      <h5 class="chat_list_username">
+                        {{chat['username'] | titlecase}}
+                        <span class="chat_date">
+                          Oct 31
+                        </span> 
+                        <span [class.is-online]="(presence.onlineUsers$ | async).includes(chat['username'])">
+                          <i class="fa fa-user mr-2"></i>
+                        </span>
+                      </h5>
                     </div>
                   </div>
                 </div>
