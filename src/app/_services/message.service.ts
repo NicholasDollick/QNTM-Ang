@@ -26,6 +26,8 @@ export class MessageService {
 
       this.hubConnection.start().catch(err => console.log(err));
 
+      console.log("chat connection started");
+
       this.hubConnection.on('ReceiveMessageThread', messages => {
         this.messageThreadSource.next(messages);
       })

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { User } from '../_models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { PresenceService } from './presence.service';
@@ -13,12 +13,14 @@ import { PresenceService } from './presence.service';
 export class AuthService {
   baseUrl = environment.apiUrl + 'auth/';
   decodedToken: any;
-  currentUser: User;
+  // currentUser$: User;
   authed: string;
   rememberMe: boolean;
   jwtHelper = new JwtHelperService();
   photoUrl = new BehaviorSubject<string>('https://res.cloudinary.com/dqfhdfq6g/image/upload/v1567036438/icons8-male-user-100.png');
   currentPhotoUrl = this.photoUrl.asObservable();
+  private currentUserSource = new ReplaySubject<User>(1);
+  currentUser$ = this.currentUserSource.asObservable();
 
 constructor(private http: HttpClient, private presence: PresenceService) { }
 
@@ -30,7 +32,6 @@ login(model: any, remember: boolean) {
   return this.http.post(this.baseUrl + 'login', model)
   .pipe(map((response: any) => {
     const user = response;
-    console.log(user);
     if (user) {
       if (remember) {
         localStorage.setItem('token', user.token);
@@ -41,12 +42,18 @@ login(model: any, remember: boolean) {
       sessionStorage.setItem('user', JSON.stringify(user));
       sessionStorage.setItem('privKey', user.priv);
       this.decodedToken = this.jwtHelper.decodeToken(user.token);
-      this.currentUser = user.user;
-      this.changeUserPhoto(this.currentUser.photoUrl);
+      // this.currentUser = user.user;
+      this.currentUserSource.next(user);
+      // this.changeUserPhoto(this.currentUser$.photoUrl);
       this.presence.createHubConnection(user);
     }
   })
   );
+}
+
+setCurrentUser(user: User) {
+  this.currentUserSource.next(user);
+  console.log('setting ' + user.username + ' as current user');
 }
 
 async verify(response: string) {
@@ -105,7 +112,8 @@ logout() {
   localStorage.clear();
   sessionStorage.clear();
   this.decodedToken = null;
-  this.currentUser = null;
+  // this.currentUser = null;
+  this.currentUserSource.next(null);
   this.presence.stopHubConnection();
 }
 

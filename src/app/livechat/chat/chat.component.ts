@@ -46,6 +46,7 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(): void {
+    console.log("in here ONE");
     // this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, photoUrl: this.photoUrl}));
     // this.messages.push(this.message); // this is a temporary test change
     this.messageService.sendMessage(this.currentUser.username, this.message)
@@ -58,6 +59,7 @@ export class ChatComponent implements OnInit {
 
   
 async sendEncrypt() {
+  console.log("in here TWO");
   const msg = this.message;
   this.message = '';
   // the method below doesnt make much sense as thats a hardcoded test password.
@@ -73,6 +75,7 @@ async sendEncrypt() {
 }
 
 sendDirect() {
+  console.log("in here THREE");
   // push your own message for display
   this.messages.push(JSON.parse(`{"username": "${this.name}", "msg": "${this.message}"}`));
   // send direct message to specified user
