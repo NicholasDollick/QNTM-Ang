@@ -54,6 +54,12 @@ login(model: any, remember: boolean) {
 setCurrentUser(user: User) {
   this.currentUserSource.next(user);
   console.log('setting ' + user.username + ' as current user');
+  if(!this.presence)
+  {
+    console.log("restarting connection");
+    this.presence.createHubConnection(user);
+    console.log("started??");
+  }
 }
 
 async verify(response: string) {
