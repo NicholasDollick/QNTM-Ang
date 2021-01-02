@@ -92,14 +92,7 @@ register(model: any) {
 }
 
 loggedIn() {
-  let token: string;
-  if (localStorage.getItem('token') === null) {
-    token =  sessionStorage.getItem('token');
- } else {
-  token =  localStorage.getItem('token');
- }
-
-  return !this.jwtHelper.isTokenExpired(token);
+  return !this.jwtHelper.isTokenExpired(this.getToken());
 }
 
 getToken() {
