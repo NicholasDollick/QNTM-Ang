@@ -26,22 +26,22 @@ export class ChatComponent implements OnInit {
   private publicKey: string;
 
   constructor(private user: UserService, private auth: AuthService, 
-    private crypto: CryptoService, private messageService: MessageService, 
-    private presenceServcie: PresenceService) { 
-
-    }
+    private crypto: CryptoService, public messageService: MessageService){}
 
   ngOnInit() {
     this.toUser = this.chattingWith;
     this.name = this.currentUser.username;
     this.publicKey = JSON.parse(sessionStorage.getItem('user'))['pub'];
     const token = '?token=' + this.auth.getToken();
+    this.currentUser.token = this.auth.getToken();
 
+    console.log(this.currentUser.token);
     this.messages.push(`Chatting with: ${this.chattingWith}`);
     this.messageService.createHubConnection(this.currentUser, this.chattingWith);
   }
 
   ngOnDestroy(): void {
+    console.log("shutdown?");
     this.messageService.stopHubConnection();
   }
 
@@ -49,7 +49,7 @@ export class ChatComponent implements OnInit {
     console.log("in here ONE");
     // this.hubConnection.invoke('chatMessages', JSON.stringify({username: this.name, msg: this.message, photoUrl: this.photoUrl}));
     // this.messages.push(this.message); // this is a temporary test change
-    this.messageService.sendMessage(this.currentUser.username, this.message)
+    this.messageService.sendMessage(this.currentUser.username, this.chattingWith, this.message)
     .then(() => this.message = '');
   }
 
@@ -66,7 +66,7 @@ async sendEncrypt() {
   // there has to be a better way to store the key already returned into object form
   const test = await this.crypto.encrypt(this.publicKey, JSON.stringify({username: this.name, msg: msg}));
 
-  this.messageService.sendMessage(this.currentUser.username, test['data'])
+  this.messageService.sendMessage(this.currentUser.username, this.chattingWith, test['data'])
   .then(() => this.message = '');
   // console.log( await this.crypto.decrypt(test['data'], this.publicKey, this.privateKey, 'asdf123'));
 

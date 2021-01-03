@@ -37,9 +37,7 @@ export class ChatContainerComponent implements OnInit {
         this.auth.changeUserPhoto(this.user['photoUrl']);
       }
       this.user['activeChats'].forEach(chat => {
-        console.log(chat['username']);
         this.userService.findUser(chat['username']).subscribe(async res => {
-          console.log(res);
           if (res !== null) {
             await this.activeChats.push(res);
           }

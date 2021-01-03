@@ -19,16 +19,15 @@ export class MessageService {
 
   createHubConnection(user: User, otherUser: string) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(this.hubUrl + 'chat?user=' + otherUser, {
+      .withUrl(this.hubUrl + 'chat?user=' + otherUser +'&from=' + user.username, {
         accessTokenFactory: () => user.token
       }).build()
       
 
       this.hubConnection.start().catch(err => console.log(err));
 
-      console.log("chat connection started");
-
       this.hubConnection.on('ReceiveMessageThread', messages => {
+        console.log("fetched");
         this.messageThreadSource.next(messages);
       })
 
@@ -39,14 +38,15 @@ export class MessageService {
       })
   }
 
-  async sendMessage(username: string, content: string) {
-    console.log('this fires');
-    return this.hubConnection.invoke('SendMessage', {recipientUsername: username, content})
+  async sendMessage(fromUsername: string, toUsername: string,content: string) {
+    return this.hubConnection.invoke('SendMessage', {senderUsername: fromUsername,recipientUsername: toUsername, content})
     .catch(err => console.log(err));
   }
 
   stopHubConnection() {
+    console.log("wut");
     if(this.hubConnection) {
+      console.log("shutting down");
       this.hubConnection.stop();
     }
   }
