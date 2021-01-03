@@ -22,6 +22,8 @@ export class PresenceService {
       accessTokenFactory: () => user.token
     }).build()
 
+    // currently, the token is not part of the user object...
+    console.log(user);
     this.hubConnection.start().catch(err => {
       console.log(err);
     });

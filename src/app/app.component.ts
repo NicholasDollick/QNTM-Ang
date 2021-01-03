@@ -36,15 +36,29 @@ export class AppComponent implements OnInit{
   setCurrentUser() {
     // let user: User = JSON.parse(localStorage.getItem('user'));
     let user: User;
+    let token;
+
     if(JSON.parse(localStorage.getItem('user')) === null)
     {
-      console.log('user did not exist in localStorage');
       user = JSON.parse(sessionStorage.getItem('user'))['user'];
+      token = sessionStorage.getItem('token');
     }
     else
+    {
       user = JSON.parse(localStorage.getItem('user'))['user'];
-    console.log(user);
-    this.accountService.setCurrentUser(user);
+      token = localStorage.getItem('token');
+    }
+
+
+    user.token = token;
+
+    if(user)
+    {
+      this.accountService.setCurrentUser(user);
+      this.presence.createHubConnection(user);
+    }
+
+  
   }
 }
 
